@@ -5,15 +5,20 @@ import { IRedditPost, IPostsReducer, IRedditPostsResponce } from './types';
 
 const initialState: IPostsReducer = {
   loading: true,
+  error: false,
   posts: [],
   postIDs: [],
 };
 
-export const getPosts = createAsyncThunk('posts/getPosts', async () => {
-  const response = await axios.get('https://www.reddit.com/r/all.json');
-  console.log(response.data);
-  return response.data;
-});
+export const getPosts = createAsyncThunk(
+  'posts/getPosts',
+  async (subreddits: string) => {
+    const response = await axios.get(
+      `https://www.reddit.com/r/${subreddits}.json`
+    );
+    return response.data;
+  }
+);
 
 const posts = createSlice({
   name: 'posts',
@@ -29,15 +34,20 @@ const posts = createSlice({
     },
   },
   extraReducers: {
+    [getPosts.pending.toString()]: (state) => {
+      state.loading = true;
+      state.error = false;
+    },
     [getPosts.fulfilled.toString()]: (
       state,
       action: PayloadAction<IRedditPostsResponce>
     ) => {
-      console.log('ACTION', action);
       action.payload.data.children.forEach((post): void => {
         if (state.postIDs.indexOf(post.data.id) === -1) {
           state.posts.push(post);
           state.postIDs.push(post.data.id);
+          state.loading = false;
+          state.error = false;
         }
       });
     },

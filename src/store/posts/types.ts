@@ -166,6 +166,7 @@ export interface IRedditPost {
 
 export interface IPostsReducer {
   loading: boolean;
+  error: boolean;
   posts: IRedditPost[];
   postIDs: string[];
 }
