@@ -169,3 +169,14 @@ export interface IPostsReducer {
   posts: IRedditPost[];
   postIDs: string[];
 }
+
+export interface IRedditPostsResponce {
+  data: {
+    after: string | null;
+    before: string | null;
+    children: IRedditPost[];
+    dist: number;
+    modhash: string;
+  };
+  kind: string;
+}
