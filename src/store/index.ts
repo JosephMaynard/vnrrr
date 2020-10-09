@@ -1,9 +1,9 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 
 import posts from './posts/posts';
 
-const rootReducer = combineReducers({
+const reducer = {
   posts: posts.reducer,
-});
+};
 
-export default configureStore({ reducer: rootReducer });
+export default configureStore({ reducer });
