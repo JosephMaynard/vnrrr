@@ -6,4 +6,8 @@ const reducer = {
   posts: posts.reducer,
 };
 
-export default configureStore({ reducer });
+const store = configureStore({ reducer });
+
+export type TState = ReturnType<typeof store.getState>;
+
+export default store;
