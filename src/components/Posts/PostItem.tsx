@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export interface IProps {
   title: string;
@@ -15,7 +16,7 @@ const PostItem: React.FC<IProps> = ({
     <li className="PostItem">
       {title}
       <br />
-      {subreddit}
+      <Link to={`/${subreddit}`}>{subreddit}</Link>
       <br />
       {author}
     </li>
