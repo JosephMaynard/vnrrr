@@ -1,3 +1,5 @@
 .Posts {
-  display: block;
+  height: calc(100vh - $layout-header-height);
+  overflow-y: auto;
+  grid-area: posts;
 }
