@@ -7,6 +7,8 @@ import { getPosts, clearPosts } from '../../store/posts/posts';
 
 import PostItem from './PostItem';
 
+import './styles/index.scss';
+
 export interface IParamTypes {
   subreddit: string;
 }
