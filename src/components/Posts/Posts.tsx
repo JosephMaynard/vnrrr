@@ -42,6 +42,7 @@ const Posts: React.FC = () => {
             title={post.title}
             author={post.author}
             subreddit={post.subreddit_name_prefixed}
+            url={post.url}
           />
         ))}
       </ul>
