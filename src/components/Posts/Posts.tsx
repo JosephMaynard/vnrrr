@@ -7,6 +7,7 @@ import { getPosts, clearPosts } from '../../store/posts/posts';
 
 import Layout from '../Layout/Layout';
 import PostItem from './PostItem';
+import CommentsRouter from '../Comments/CommentsRouter';
 
 import './styles/index.scss';
 
@@ -48,6 +49,7 @@ const Posts: React.FC = () => {
           Get More Posts
         </button>
       </div>
+      <CommentsRouter />
     </Layout>
   );
 };

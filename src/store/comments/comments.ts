@@ -11,14 +11,14 @@ const initialState: ICommentsReducer = {
 
 export interface IGetCommentsOptions {
   subreddit: string;
-  postID: string;
+  postId: string;
 }
 
 export const getComments = createAsyncThunk(
   'comments/getComments',
   async (options: IGetCommentsOptions) => {
     const response = await axios.get(
-      `https://www.reddit.com/r/${options.subreddit}/comments/${options.postID}.json`
+      `https://www.reddit.com/r/${options.subreddit}/comments/${options.postId}.json`
     );
     return response.data;
   }
@@ -38,16 +38,15 @@ const comments = createSlice({
     [getComments.pending.toString()]: (state) => {
       state.loading = true;
       state.error = false;
+      state.comments = null;
     },
     [getComments.fulfilled.toString()]: (
       state,
       action: PayloadAction<IRedditCommentsResponce>
     ) => {
-      action.payload.data.children.forEach((post): void => {
-        state.comments = post.data;
-        state.loading = false;
-        state.error = false;
-      });
+      state.comments = action.payload;
+      state.loading = false;
+      state.error = false;
     },
   },
 });
