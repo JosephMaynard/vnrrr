@@ -1,16 +1,22 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import { TState } from '../../store';
 import { getPosts } from '../../store/posts/posts';
 
 import PostItem from './PostItem';
 
+export interface IParamTypes {
+  subreddit: string;
+}
+
 const Posts: React.FC = () => {
+  const { subreddit } = useParams<IParamTypes>();
   const dispatch = useDispatch();
   const posts = useSelector((state: TState) => state.posts.posts);
   useEffect((): void => {
-    dispatch(getPosts('all'));
+    dispatch(getPosts(subreddit));
   });
   return (
     <div className="Posts">
