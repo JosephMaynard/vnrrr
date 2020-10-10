@@ -68,21 +68,23 @@ const PostItem: React.FC<IProps> = ({ post }: IProps): JSX.Element => {
   }, [thumbnail, subreddit_name_prefixed]);
   return (
     <li className="PostItem">
-      {postThumbnail}
-      <span className="PostItem_text">
-        <span className="PostItem_text_topRow">
-          {postTitle}{' '}
-          {domain && <span className="PostItem_domain">({domain})</span>}
-        </span>
-        <span className="PostItem_text_bottomRow">
-          {over_18 && <span className="PostItem_nsfw">nsfw</span>}
-          <span className="PostItem_author">{author}</span>
-          <Link
-            to={`/${subreddit_name_prefixed}`}
-            className="PostItem_subreddit_name_prefixedLink"
-          >
-            {subreddit_name_prefixed}
-          </Link>
+      <span className="PostItem_inner">
+        {postThumbnail}
+        <span className="PostItem_text">
+          <span className="PostItem_text_topRow">
+            {postTitle}{' '}
+            {domain && <span className="PostItem_domain">({domain})</span>}
+          </span>
+          <span className="PostItem_text_bottomRow">
+            {over_18 && <span className="PostItem_nsfw">nsfw</span>}
+            <span className="PostItem_author">{author}</span>
+            <Link
+              to={`/${subreddit_name_prefixed}`}
+              className="PostItem_subreddit_name_prefixedLink"
+            >
+              {subreddit_name_prefixed}
+            </Link>
+          </span>
         </span>
       </span>
     </li>
