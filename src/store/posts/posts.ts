@@ -24,13 +24,11 @@ const posts = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    add: (state, action: PayloadAction<{ posts: IRedditPost[] }>) => {
-      action.payload.posts.forEach((post): void => {
-        if (state.postIDs.indexOf(post.data.id) === -1) {
-          state.posts.push(post);
-          state.postIDs.push(post.data.id);
-        }
-      });
+    clearPosts: (state) => {
+      state.loading = true;
+      state.error = false;
+      state.posts = [];
+      state.postIDs = [];
     },
   },
   extraReducers: {
@@ -53,5 +51,7 @@ const posts = createSlice({
     },
   },
 });
+
+export const { clearPosts } = posts.actions;
 
 export default posts;
