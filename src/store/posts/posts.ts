@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-import { IRedditPost, IPostsReducer, IRedditPostsResponce } from './types';
+import { IPostsReducer, IRedditPostsResponce } from './types';
 
 const initialState: IPostsReducer = {
   loading: true,
