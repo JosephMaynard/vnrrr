@@ -2,13 +2,22 @@ import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { IRedditPostData } from '../../store/api-types';
+import { stringToHashedColour } from '../../utils/colour-utils';
 
 export interface IProps {
   post: IRedditPostData;
 }
 
 const PostItem: React.FC<IProps> = ({ post }: IProps): JSX.Element => {
-  const { title, subreddit, author, url, domain, over_18, thumbnail } = post;
+  const {
+    title,
+    subreddit_name_prefixed,
+    author,
+    url,
+    domain,
+    over_18,
+    thumbnail,
+  } = post;
   const postTitle = useMemo(() => {
     if (url === undefined || url === '') {
       return <p className="PostItem_postTitle">{title}</p>;
@@ -31,7 +40,12 @@ const PostItem: React.FC<IProps> = ({ post }: IProps): JSX.Element => {
     );
   }, [url]);
   const postThumbnail = useMemo(() => {
-    if (thumbnail) {
+    if (
+      thumbnail &&
+      thumbnail !== 'self' &&
+      thumbnail !== 'default' &&
+      thumbnail !== 'image'
+    ) {
       return (
         <span
           className="PostItem_thumbnail"
@@ -40,25 +54,35 @@ const PostItem: React.FC<IProps> = ({ post }: IProps): JSX.Element => {
       );
     }
     return (
-      <span className="PostItem_thumbnail">
-        {subreddit.substr(0, 1).toUpperCase()}
+      <span
+        className="PostItem_thumbnail"
+        style={{
+          backgroundColor: stringToHashedColour(subreddit_name_prefixed),
+        }}
+      >
+        <span className="PostItem_thumbnail_letter">
+          {subreddit_name_prefixed.substr(2, 1).toUpperCase()}
+        </span>
       </span>
     );
-  }, [thumbnail, subreddit]);
+  }, [thumbnail, subreddit_name_prefixed]);
   return (
     <li className="PostItem">
       {postThumbnail}
       <span className="PostItem_text">
         <span className="PostItem_text_topRow">
           {postTitle}{' '}
-          {domain && <span className="PostItem_text">({domain})</span>}
+          {domain && <span className="PostItem_domain">({domain})</span>}
         </span>
         <span className="PostItem_text_bottomRow">
           {over_18 && <span className="PostItem_nsfw">nsfw</span>}
-          <Link to={`/${subreddit}`} className="PostItem_subredditLink">
-            {subreddit}
-          </Link>
           <span className="PostItem_author">{author}</span>
+          <Link
+            to={`/${subreddit_name_prefixed}`}
+            className="PostItem_subreddit_name_prefixedLink"
+          >
+            {subreddit_name_prefixed}
+          </Link>
         </span>
       </span>
     </li>
