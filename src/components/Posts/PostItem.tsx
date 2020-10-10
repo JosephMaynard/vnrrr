@@ -8,7 +8,7 @@ export interface IProps {
 }
 
 const PostItem: React.FC<IProps> = ({ post }: IProps): JSX.Element => {
-  const { title, subreddit, author, url } = post;
+  const { title, subreddit, author, url, domain, over_18, thumbnail } = post;
   const postTitle = useMemo(() => {
     if (url === undefined || url === '') {
       return <p className="PostItem_postTitle">{title}</p>;
@@ -30,13 +30,37 @@ const PostItem: React.FC<IProps> = ({ post }: IProps): JSX.Element => {
       </a>
     );
   }, [url]);
+  const postThumbnail = useMemo(() => {
+    if (thumbnail) {
+      return (
+        <span
+          className="PostItem_thumbnail"
+          style={{ backgroundImage: `url(${thumbnail})` }}
+        />
+      );
+    }
+    return (
+      <span className="PostItem_thumbnail">
+        {subreddit.substr(0, 1).toUpperCase()}
+      </span>
+    );
+  }, [thumbnail, subreddit]);
   return (
     <li className="PostItem">
-      {postTitle}
-      <br />
-      <Link to={`/${subreddit}`}>{subreddit}</Link>
-      <br />
-      {author}
+      {postThumbnail}
+      <span className="PostItem_text">
+        <span className="PostItem_text_topRow">
+          {postTitle}{' '}
+          {domain && <span className="PostItem_text">({domain})</span>}
+        </span>
+        <span className="PostItem_text_bottomRow">
+          {over_18 && <span className="PostItem_nsfw">nsfw</span>}
+          <Link to={`/${subreddit}`} className="PostItem_subredditLink">
+            {subreddit}
+          </Link>
+          <span className="PostItem_author">{author}</span>
+        </span>
+      </span>
     </li>
   );
 };
