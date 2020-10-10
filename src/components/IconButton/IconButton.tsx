@@ -9,6 +9,7 @@ export interface IProps {
   label?: string;
   onClick: (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   disabled?: boolean;
+  className?: string;
 }
 
 const IconButton: React.FC<IProps> = ({
@@ -16,10 +17,11 @@ const IconButton: React.FC<IProps> = ({
   label,
   onClick,
   disabled,
+  className,
 }: IProps): JSX.Element => (
   <button
     type="button"
-    className="IconButton"
+    className={`IconButton${className ? ` ${className}` : ''}`}
     onClick={onClick}
     disabled={disabled}
   >
