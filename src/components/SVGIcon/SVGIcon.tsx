@@ -159,7 +159,6 @@ const SVGIcon: React.FC<IProps> = ({
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 64 64"
   >
-    {process.env.NODE_ENV === 'development' && `<!-- ${icon} -->`}
     {title && <title>{title}</title>}
     {showIcon(icon)}
   </svg>
