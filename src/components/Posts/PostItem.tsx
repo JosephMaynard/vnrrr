@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { IRedditPostData } from '../../store/api-types';
 import { stringToHashedColour } from '../../utils/colour-utils';
 
+import SVGIcon from '../SVGIcon/SVGIcon';
+
 export interface IProps {
   post: IRedditPostData;
 }
@@ -17,6 +19,9 @@ const PostItem: React.FC<IProps> = ({ post }: IProps): JSX.Element => {
     domain,
     over_18,
     thumbnail,
+    id,
+    num_comments,
+    ups,
   } = post;
   const postTitle = useMemo(() => {
     if (url === undefined || url === '') {
@@ -38,7 +43,7 @@ const PostItem: React.FC<IProps> = ({ post }: IProps): JSX.Element => {
         {title}
       </a>
     );
-  }, [url]);
+  }, [url, title]);
   const postThumbnail = useMemo(() => {
     if (
       thumbnail &&
@@ -87,6 +92,21 @@ const PostItem: React.FC<IProps> = ({ post }: IProps): JSX.Element => {
           </span>
         </span>
       </span>
+      <Link
+        to={`/${subreddit_name_prefixed}/comments/${id}`}
+        className="PostItem_commentsLink"
+      >
+        <span className="PostItem_commentsLink_inner">
+          <span className="PostItem_commentsLink_top">
+            <SVGIcon icon="comments" className="PostItem_commentsLink_icon" />
+            <span className="PostItem_commentsLink_count">{num_comments}</span>
+          </span>
+          <span className="PostItem_upvotes">
+            <SVGIcon icon="up-votes" className="PostItem_upvotes_icon" />
+            {ups}
+          </span>
+        </span>
+      </Link>
     </li>
   );
 };

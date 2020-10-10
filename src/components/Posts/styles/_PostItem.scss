@@ -1,6 +1,9 @@
 .PostItem {
   border-bottom: solid 1px $color-border;
   max-height: calc(100vh - $layout-header-height);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 
   &_inner {
     display: flex;
@@ -59,5 +62,54 @@
 
   &_author {
     margin-right: 0.25rem;
+  }
+
+  &_commentsLink {
+    width: 3rem;
+    text-decoration: none;
+    padding: 0.125rem;
+
+    &_inner {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    &_icon {
+      width: 2rem;
+      height: 2rem;
+      margin: 0.25rem auto 0;
+
+      * {
+        fill: $color-secondary;
+      }
+    }
+
+    &_count {
+      display: block;
+      font-size: 0.75rem;
+      text-align: center;
+      color: $color-secondary;
+    }
+  }
+
+  &_upvotes {
+    display: flex;
+    padding: 0.03125rem 0.125rem;
+    background-color: $color-secondary;
+    color: $color-secondary-text;
+    font-size: 0.5rem;
+
+    &_icon {
+      display: inline-block;
+      width: 0.75rem;
+      height: 0.75rem;
+      margin-right: 0.5rem;
+
+      * {
+        fill: $color-secondary-text;
+      }
+    }
   }
 }
