@@ -37,13 +37,7 @@ const Posts: React.FC = () => {
       <p>Posts</p>
       <ul>
         {posts.map((post) => (
-          <PostItem
-            key={post.name}
-            title={post.title}
-            author={post.author}
-            subreddit={post.subreddit_name_prefixed}
-            url={post.url}
-          />
+          <PostItem key={post.name} post={post} />
         ))}
       </ul>
       <button onClick={getMorePosts} type="button">

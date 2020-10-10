@@ -1,19 +1,14 @@
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
+import { IRedditPostData } from '../../store/api-types';
+
 export interface IProps {
-  title: string;
-  subreddit: string;
-  author: string;
-  url?: string;
+  post: IRedditPostData;
 }
 
-const PostItem: React.FC<IProps> = ({
-  title,
-  subreddit,
-  author,
-  url,
-}: IProps): JSX.Element => {
+const PostItem: React.FC<IProps> = ({ post }: IProps): JSX.Element => {
+  const { title, subreddit, author, url } = post;
   const postTitle = useMemo(() => {
     if (url === undefined || url === '') {
       return <p className="PostItem_postTitle">{title}</p>;
