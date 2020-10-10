@@ -27,7 +27,7 @@ const Posts: React.FC = () => {
       getPosts({
         subreddit,
         page: page + 1,
-        after: posts[posts.length - 1].data.name,
+        after: posts[posts.length - 1].name,
       })
     );
     setPage(page + 1);
@@ -38,10 +38,10 @@ const Posts: React.FC = () => {
       <ul>
         {posts.map((post) => (
           <PostItem
-            key={post.data.name}
-            title={post.data.title}
-            author={post.data.author}
-            subreddit={post.data.subreddit_name_prefixed}
+            key={post.name}
+            title={post.title}
+            author={post.author}
+            subreddit={post.subreddit_name_prefixed}
           />
         ))}
       </ul>

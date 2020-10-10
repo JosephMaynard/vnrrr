@@ -52,7 +52,7 @@ const posts = createSlice({
     ) => {
       action.payload.data.children.forEach((post): void => {
         if (state.postIDs.indexOf(post.data.id) === -1) {
-          state.posts.push(post);
+          state.posts.push(post.data);
           state.postIDs.push(post.data.id);
           state.loading = false;
           state.error = false;
