@@ -1,26 +1,30 @@
 :root {
-  --themeColorPrimary: #002c5f;
-  --themeColorPrimaryText: #fff;
-  --themeColorSecondary: #26809c;
-  --themeColorSecondaryText: #fff;
-  --themeColorText: #111;
-  --themeColorBackground1: #fff;
-  --themeColorBackground2: #f5f5f5;
-  --themeColorModalBackground: rgba(0, 0, 0, 0.6);
-  --themeColorBorder: #e0dada;
+  --colorPrimary: #002c5f;
+  --colorPrimaryText: #fff;
+  --colorSecondary: #26809c;
+  --colorSecondaryText: #fff;
+  --colorText: #111;
+  --colorBackground1: #fff;
+  --colorBackground2: #f5f5f5;
+  --colorModalBackground: rgba(0, 0, 0, 0.6);
+  --colorBorder: #e0dada;
+
+  --layoutHeaderHeight: 4rem;
 }
 
-$color-primary: var(--themeColorPrimary);
-$color-primary-text: var(--themeColorPrimaryText);
+$color-primary: var(--colorPrimary);
+$color-primary-text: var(--colorPrimaryText);
 
-$color-secondary: var(--themeColorSecondary);
-$color-secondary-text: var(--themeColorSecondaryText);
+$color-secondary: var(--colorSecondary);
+$color-secondary-text: var(--colorSecondaryText);
 
-$color-text: var(--themeColorText);
+$color-text: var(--colorText);
 
-$color-background: var(--themeColorBackground1);
-$color-background-secondary: var(--themeColorBackground2);
+$color-background: var(--colorBackground1);
+$color-background-secondary: var(--colorBackground2);
 
-$color-modal-background: var(--themeColorModalBackground);
+$color-modal-background: var(--colorModalBackground);
 
-$color-border: var(--themeColorBorder);
+$color-border: var(--colorBorder);
+
+$layout-header-height: var(--layoutHeaderHeight);
