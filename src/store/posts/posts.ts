@@ -10,11 +10,21 @@ const initialState: IPostsReducer = {
   postIDs: [],
 };
 
+export interface IGetPostsOptions {
+  subreddit: string;
+  after?: string;
+  page?: number;
+}
+
 export const getPosts = createAsyncThunk(
   'posts/getPosts',
-  async (subreddits: string) => {
+  async (options: IGetPostsOptions) => {
     const response = await axios.get(
-      `https://www.reddit.com/r/${subreddits}.json`
+      `https://www.reddit.com/r/${options.subreddit}.json${
+        options.after || options.page ? '?count=25' : ''
+      }${options.page ? `&page=${options.page}` : ''}${
+        options.after ? `&after=${options.after}` : ''
+      }`
     );
     return response.data;
   }

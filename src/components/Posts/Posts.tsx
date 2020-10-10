@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -15,23 +15,37 @@ const Posts: React.FC = () => {
   let { subreddit } = useParams<IParamTypes>();
   const dispatch = useDispatch();
   const posts = useSelector((state: TState) => state.posts.posts);
+  const [page, setPage] = useState(1);
   useEffect((): void => {
     dispatch(clearPosts());
-    dispatch(getPosts(subreddit));
+    dispatch(getPosts({ subreddit }));
   }, [subreddit]);
+  const getMorePosts = (): void => {
+    dispatch(
+      getPosts({
+        subreddit,
+        page: page + 1,
+        after: posts[posts.length - 1].data.name,
+      })
+    );
+    setPage(page + 1);
+  };
   return (
     <div className="Posts">
       <p>Posts</p>
       <ul>
         {posts.map((post) => (
           <PostItem
-            key={post.data.id}
+            key={post.data.name}
             title={post.data.title}
             author={post.data.author}
             subreddit={post.data.subreddit_name_prefixed}
           />
         ))}
       </ul>
+      <button onClick={getMorePosts} type="button">
+        Get More Posts
+      </button>
     </div>
   );
 };
