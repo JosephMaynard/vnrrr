@@ -1,4 +1,13 @@
 .PostItem {
-  display: block;
-  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  padding: 0.5rem;
+
+  &_thumbnail {
+    display: block;
+    width: 3rem;
+    height: 3rem;
+    background-size: cover;
+    flex-shrink: 0;
+  }
 }
