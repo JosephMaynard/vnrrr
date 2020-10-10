@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { TState } from '../../store';
 import { getPosts, clearPosts } from '../../store/posts/posts';
 
+import Layout from '../Layout/Layout';
 import PostItem from './PostItem';
 
 import './styles/index.scss';
@@ -18,9 +19,12 @@ const Posts: React.FC = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state: TState) => state.posts.posts);
   const [page, setPage] = useState(1);
-  useEffect((): void => {
+  const refresh = (): void => {
     dispatch(clearPosts());
     dispatch(getPosts({ subreddit }));
+  };
+  useEffect((): void => {
+    refresh();
   }, [subreddit]);
   const getMorePosts = (): void => {
     dispatch(
@@ -33,17 +37,18 @@ const Posts: React.FC = () => {
     setPage(page + 1);
   };
   return (
-    <div className="Posts">
-      <p>Posts</p>
-      <ul>
-        {posts.map((post) => (
-          <PostItem key={post.name} post={post} />
-        ))}
-      </ul>
-      <button onClick={getMorePosts} type="button">
-        Get More Posts
-      </button>
-    </div>
+    <Layout subreddit={subreddit} refresh={refresh}>
+      <div className="Posts">
+        <ul className="Posts_ul">
+          {posts.map((post) => (
+            <PostItem key={post.name} post={post} />
+          ))}
+        </ul>
+        <button onClick={getMorePosts} type="button">
+          Get More Posts
+        </button>
+      </div>
+    </Layout>
   );
 };
 
