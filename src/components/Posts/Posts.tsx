@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { TState } from '../../store';
-import { getPosts } from '../../store/posts/posts';
+import { getPosts, clearPosts } from '../../store/posts/posts';
 
 import PostItem from './PostItem';
 
@@ -12,12 +12,13 @@ export interface IParamTypes {
 }
 
 const Posts: React.FC = () => {
-  const { subreddit } = useParams<IParamTypes>();
+  let { subreddit } = useParams<IParamTypes>();
   const dispatch = useDispatch();
   const posts = useSelector((state: TState) => state.posts.posts);
   useEffect((): void => {
+    dispatch(clearPosts());
     dispatch(getPosts(subreddit));
-  });
+  }, [subreddit]);
   return (
     <div className="Posts">
       <p>Posts</p>
