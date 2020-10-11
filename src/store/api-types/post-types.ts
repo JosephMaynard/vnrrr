@@ -41,6 +41,10 @@ export type TRedditPostKinds = 't1' | 't2' | 't3' | 't4' | 't5' | 't6';
 
 export type TRedditPostHint = 'image';
 
+export interface IAuthorFlairRichtext {
+  [key: string]: string;
+}
+
 export interface IRedditPostData {
   approved_at_utc: number | null;
   subreddit: string;
@@ -86,7 +90,7 @@ export interface IRedditPostData {
   thumbnail: string;
   edited: boolean;
   author_flair_css_class: null;
-  author_flair_richtext: [];
+  author_flair_richtext: IAuthorFlairRichtext[];
   gildings: { gid_1: 1 };
   post_hint: TRedditPostHint;
   content_categories: null;
@@ -159,9 +163,25 @@ export interface IRedditPostData {
   num_crossposts: number;
   media: null;
   is_video: boolean;
+  replies?: IRedditCommentsResponseItem;
+  body?: string | null;
+  body_html?: string | null;
 }
 
 export interface IRedditPost {
   kind: TRedditPostKinds;
   data: IRedditPostData;
 }
+
+export interface IRedditCommentsResponseItem {
+  kind: 'Listing';
+  data: {
+    modhash: string;
+    dist: string | null;
+    after: string | null;
+    before: string | null;
+    children: IRedditPost[];
+  };
+}
+
+export type TRedditCommentsResponse = IRedditCommentsResponseItem[];
