@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-import { ICommentsReducer, IRedditCommentsResponce } from './types';
+import { ICommentsReducer } from './types';
+import { TRedditCommentsResponse } from '../api-types';
 
 const initialState: ICommentsReducer = {
   loading: true,
@@ -42,7 +43,7 @@ const comments = createSlice({
     },
     [getComments.fulfilled.toString()]: (
       state,
-      action: PayloadAction<IRedditCommentsResponce>
+      action: PayloadAction<TRedditCommentsResponse>
     ) => {
       state.comments = action.payload;
       state.loading = false;
