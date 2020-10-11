@@ -26,9 +26,7 @@ const Posts: React.FC = () => {
     dispatch(clearPosts());
     dispatch(getPosts({ subreddit }));
   };
-  useEffect((): void => {
-    refresh();
-  }, [subreddit]);
+  useEffect(refresh, [subreddit]);
   const getMorePosts = (): void => {
     if (!loading) {
       dispatch(
