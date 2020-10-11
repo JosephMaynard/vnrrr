@@ -21,6 +21,7 @@ const CommentBlock: React.FC<IProps> = ({
     <div className="CommentBlock">
       <div className="CommentBlock_header" onClick={toggleExpanded}>
         {comment.data.author}
+        <span className="CommentBlock_pts">{comment.data.ups} pts</span>
       </div>
       {expanded && (
         <>

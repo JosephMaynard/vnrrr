@@ -83,9 +83,13 @@ const PostItem: React.FC<IProps> = ({ post }: IProps): JSX.Element => {
           <span className="PostItem_text_bottomRow">
             {over_18 && <span className="PostItem_nsfw">nsfw</span>}
             <span className="PostItem_author">{author}</span>
+            <span className="PostItem_upvotes">
+              <SVGIcon icon="up-votes" className="PostItem_upvotes_icon" />
+              {ups}
+            </span>
             <Link
               to={`/${subreddit_name_prefixed}`}
-              className="PostItem_subreddit_name_prefixedLink"
+              className="PostItem_subredditLink"
             >
               {subreddit_name_prefixed}
             </Link>
@@ -100,10 +104,6 @@ const PostItem: React.FC<IProps> = ({ post }: IProps): JSX.Element => {
           <span className="PostItem_commentsLink_top">
             <SVGIcon icon="comments" className="PostItem_commentsLink_icon" />
             <span className="PostItem_commentsLink_count">{num_comments}</span>
-          </span>
-          <span className="PostItem_upvotes">
-            <SVGIcon icon="up-votes" className="PostItem_upvotes_icon" />
-            {ups}
           </span>
         </span>
       </Link>

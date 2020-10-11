@@ -12,7 +12,9 @@ const CommentsRouter: React.FC = (): JSX.Element => {
           <Comments />
         </Route>
         <Route>
-          <p>Select story</p>
+          <div className="CommentsRouter_selectPost">
+            <p>Select a post.</p>
+          </div>
         </Route>
       </Switch>
     </div>
