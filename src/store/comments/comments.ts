@@ -18,7 +18,7 @@ export const getComments = createAsyncThunk(
   'comments/getComments',
   async (options: IGetCommentsOptions) => {
     const response = await axios.get(
-      `https://www.reddit.com/r/${options.subreddit}/comments/${options.postId}.json`
+      `https://www.reddit.com/r/${options.subreddit}/comments/${options.postId}.json?raw_json=1`
     );
     return response.data;
   }

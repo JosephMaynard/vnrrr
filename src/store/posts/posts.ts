@@ -20,11 +20,11 @@ export const getPosts = createAsyncThunk(
   'posts/getPosts',
   async (options: IGetPostsOptions) => {
     const response = await axios.get(
-      `https://www.reddit.com/r/${options.subreddit}.json${
-        options.after || options.page ? '?count=25' : ''
+      `https://www.reddit.com/r/${options.subreddit}.json?${
+        options.after || options.page ? 'count=25' : ''
       }${options.page ? `&page=${options.page}` : ''}${
         options.after ? `&after=${options.after}` : ''
-      }`
+      }&raw_json=1`
     );
     return response.data;
   }
