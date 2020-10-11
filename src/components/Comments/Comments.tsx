@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom';
 import { TState } from '../../store';
 import { getComments, clearComments } from '../../store/comments/comments';
 
+import CommentBlock from './CommentBlock';
+
 export interface IParamTypes {
   subreddit: string;
   postId: string;
@@ -21,7 +23,11 @@ const Comments: React.FC = (): JSX.Element => {
   return (
     <div className="Comments">
       Post ID: {postId} - {comments ? 'comments' : ''} -{' '}
-      {loading ? 'loading' : ''}
+      {!loading &&
+        comments &&
+        comments[1].data.children.map(
+          (comment): JSX.Element => <CommentBlock comment={comment} />
+        )}
     </div>
   );
 };
