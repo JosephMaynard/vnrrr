@@ -22,26 +22,38 @@ const CommentBlock: React.FC<IProps> = ({
       <div className="CommentBlock_header" onClick={toggleExpanded}>
         {comment.data.author}
       </div>
-      {comment.data.body_html && <HTMLBlock html={comment.data.body_html} />}
-      {comment.data.replies && expanded && (
-        <div className="CommentBlock_replies">
+      {expanded && (
+        <>
+          {comment.data.body_html && (
+            <HTMLBlock
+              className="CommentBlock_comment"
+              html={comment.data.body_html}
+            />
+          )}
           <button
             type="button"
-            className={`CommentBlock_replies_button CommentBlock_replies_button_style${
-              level % 2
+            className={`CommentBlock_button CommentBlock_button_style_${
+              level % 3
             }`}
             onClick={toggleExpanded}
           />
-          {comment.data.replies.data.children.map(
-            (reply): JSX.Element => (
-              <CommentBlock
-                key={reply.data.name}
-                comment={reply}
-                level={level + 1}
-              />
-            )
-          )}
-        </div>
+          {comment.data.replies &&
+            comment.data.replies.data.children &&
+            comment.data.replies.data.children.length > 0 && (
+              <div className="CommentBlock_replies">
+                {comment.data.replies.data.children.map(
+                  (reply): JSX.Element | null =>
+                    reply.data.name ? (
+                      <CommentBlock
+                        key={reply.data.name}
+                        comment={reply}
+                        level={level + 1}
+                      />
+                    ) : null
+                )}
+              </div>
+            )}
+        </>
       )}
     </div>
   );

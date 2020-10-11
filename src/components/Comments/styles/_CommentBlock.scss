@@ -1,0 +1,46 @@
+.CommentBlock {
+  display: grid;
+  grid-template-columns: 1rem 1fr;
+  grid-template-rows: auto auto auto;
+  width: 100%;
+  grid-template-areas:
+    'header header'
+    'comment comment'
+    'button replies';
+
+  &_header {
+    background-color: $color-primary;
+    color: $color-primary-text;
+    grid-area: header;
+  }
+
+  &_comment {
+    overflow: hidden;
+    word-break: break-word;
+    grid-area: comment;
+    padding: 0.5rem;
+  }
+
+  &_replies {
+    grid-area: replies;
+  }
+
+  &_button {
+    grid-area: button;
+    display: block;
+    border: none;
+    padding: 0;
+
+    &_style_0 {
+      background-color: red;
+    }
+
+    &_style_1 {
+      background-color: blue;
+    }
+
+    &_style_2 {
+      background-color: green;
+    }
+  }
+}

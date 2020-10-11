@@ -7,6 +7,8 @@ import { getComments, clearComments } from '../../store/comments/comments';
 
 import CommentBlock from './CommentBlock';
 
+import './styles/index.scss';
+
 export interface IParamTypes {
   subreddit: string;
   postId: string;

@@ -1,0 +1,5 @@
+.Comments {
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: calc(100vh - #{$layout-header-height});
+}
