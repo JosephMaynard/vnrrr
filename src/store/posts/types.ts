@@ -1,4 +1,4 @@
-import { IRedditPostData, IRedditPost } from '../api-types';
+import { IRedditPostData, IRedditPost } from '../api-types/post-types';
 
 export interface IPostsReducer {
   loading: boolean;
