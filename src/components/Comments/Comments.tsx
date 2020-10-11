@@ -12,12 +12,18 @@ export interface IParamTypes {
 
 const Comments: React.FC = (): JSX.Element => {
   let { subreddit, postId } = useParams<IParamTypes>();
+  const { comments, loading } = useSelector((state: TState) => state.comments);
   const dispatch = useDispatch();
   useEffect((): void => {
     dispatch(clearComments());
     dispatch(getComments({ subreddit, postId }));
-  }, [postId]);
-  return <div className="Comments">Post ID: {postId}</div>;
+  }, [subreddit, postId]);
+  return (
+    <div className="Comments">
+      Post ID: {postId} - {comments ? 'comments' : ''} -{' '}
+      {loading ? 'loading' : ''}
+    </div>
+  );
 };
 
 export default Comments;
