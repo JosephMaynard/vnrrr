@@ -5,6 +5,7 @@ import { IPostsReducer, IRedditPostsResponce } from './types';
 
 const initialState: IPostsReducer = {
   loading: true,
+  keepCurrentSubreddit: false,
   error: false,
   posts: [],
   postIDs: [],
@@ -40,8 +41,12 @@ const posts = createSlice({
     clearPosts: (state) => {
       state.loading = true;
       state.error = false;
+      state.keepCurrentSubreddit = false;
       state.posts = [];
       state.postIDs = [];
+    },
+    setKeepCurrentSubreddit: (state, action: PayloadAction<boolean>) => {
+      state.keepCurrentSubreddit = action.payload;
     },
   },
   extraReducers: {
@@ -69,6 +74,6 @@ const posts = createSlice({
   },
 });
 
-export const { clearPosts } = posts.actions;
+export const { clearPosts, setKeepCurrentSubreddit } = posts.actions;
 
 export default posts;

@@ -6,6 +6,7 @@ export interface IPostsReducer {
   posts: IRedditPostData[];
   postIDs: string[];
   currentSubreddit?: string;
+  keepCurrentSubreddit: boolean;
 }
 
 export interface IRedditPostsResponce {

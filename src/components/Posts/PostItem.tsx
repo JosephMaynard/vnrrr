@@ -8,9 +8,13 @@ import SVGIcon from '../SVGIcon/SVGIcon';
 
 export interface IProps {
   post: IRedditPostData;
+  commentsOnClick: () => void;
 }
 
-const PostItem: React.FC<IProps> = ({ post }: IProps): JSX.Element => {
+const PostItem: React.FC<IProps> = ({
+  post,
+  commentsOnClick,
+}: IProps): JSX.Element => {
   const {
     title,
     subreddit_name_prefixed,
@@ -28,7 +32,11 @@ const PostItem: React.FC<IProps> = ({ post }: IProps): JSX.Element => {
       return <p className="PostItem_postTitle">{title}</p>;
     } else if (url.substr(0, 23) === 'https://www.reddit.com/') {
       return (
-        <Link to={url.substr(22)} className="PostItem_postTitle">
+        <Link
+          to={url.substr(22)}
+          className="PostItem_postTitle"
+          onClick={commentsOnClick}
+        >
           {title}
         </Link>
       );
@@ -106,6 +114,7 @@ const PostItem: React.FC<IProps> = ({ post }: IProps): JSX.Element => {
       <Link
         to={`/${subreddit_name_prefixed}/comments/${id}`}
         className="PostItem_commentsLink"
+        onClick={commentsOnClick}
       >
         <span className="PostItem_commentsLink_inner">
           <span className="PostItem_commentsLink_top">

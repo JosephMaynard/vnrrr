@@ -4,7 +4,12 @@ import { useParams } from 'react-router-dom';
 import { Waypoint } from 'react-waypoint';
 
 import { TState } from '../../store';
-import { getPosts, clearPosts } from '../../store/posts/posts';
+import {
+  getPosts,
+  clearPosts,
+  setKeepCurrentSubreddit,
+} from '../../store/posts/posts';
+import { setShowComments } from '../../store/ui/ui';
 
 import Layout from '../Layout/Layout';
 import PostItem from './PostItem';
@@ -20,13 +25,25 @@ export interface IParamTypes {
 const Posts: React.FC = () => {
   let { subreddit } = useParams<IParamTypes>();
   const dispatch = useDispatch();
-  const { posts, loading } = useSelector((state: TState) => state.posts);
+  const {
+    posts,
+    loading,
+    currentSubreddit,
+    keepCurrentSubreddit,
+  } = useSelector((state: TState) => state.posts);
   const [page, setPage] = useState(1);
   const refresh = (): void => {
     dispatch(clearPosts());
     dispatch(getPosts({ subreddit }));
   };
-  useEffect(refresh, [subreddit]);
+  const initialLoad = (): void => {
+    if (keepCurrentSubreddit === true || currentSubreddit === subreddit) {
+      dispatch(setKeepCurrentSubreddit(false));
+    } else {
+      refresh();
+    }
+  };
+  useEffect(initialLoad, [subreddit]);
   const getMorePosts = (): void => {
     if (!loading) {
       dispatch(
@@ -39,12 +56,20 @@ const Posts: React.FC = () => {
       setPage(page + 1);
     }
   };
+  const commentsOnClick = (): void => {
+    dispatch(setKeepCurrentSubreddit(true));
+    dispatch(setShowComments(true));
+  };
   return (
     <Layout subreddit={subreddit} refresh={refresh}>
       <div className={`Posts${false ? ' Posts_showComments' : ''}`}>
         <ul className="Posts_ul">
           {posts.map((post) => (
-            <PostItem key={post.name} post={post} />
+            <PostItem
+              key={post.name}
+              post={post}
+              commentsOnClick={commentsOnClick}
+            />
           ))}
         </ul>
         <Waypoint onEnter={getMorePosts} />
