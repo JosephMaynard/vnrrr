@@ -26,7 +26,10 @@ export const getPosts = createAsyncThunk(
         options.after ? `&after=${options.after}` : ''
       }&raw_json=1`
     );
-    return response.data;
+    return {
+      response: response.data,
+      currentSubreddit: options.subreddit,
+    };
   }
 );
 
@@ -48,9 +51,12 @@ const posts = createSlice({
     },
     [getPosts.fulfilled.toString()]: (
       state,
-      action: PayloadAction<IRedditPostsResponce>
+      action: PayloadAction<{
+        response: IRedditPostsResponce;
+        currentSubreddit: string;
+      }>
     ) => {
-      action.payload.data.children.forEach((post): void => {
+      action.payload.response.data.children.forEach((post): void => {
         if (state.postIDs.indexOf(post.data.id) === -1) {
           state.posts.push(post.data);
           state.postIDs.push(post.data.id);
@@ -58,6 +64,7 @@ const posts = createSlice({
           state.error = false;
         }
       });
+      state.currentSubreddit = action.payload.currentSubreddit;
     },
   },
 });
