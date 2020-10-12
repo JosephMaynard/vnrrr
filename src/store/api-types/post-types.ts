@@ -37,7 +37,7 @@ export interface IRedditAward {
   static_icon_url: string;
 }
 
-export type TRedditPostKinds = 't1' | 't2' | 't3' | 't4' | 't5' | 't6';
+export type TRedditPostKinds = 't1' | 't2' | 't3' | 't4' | 't5' | 't6' | 'more';
 
 export type TRedditPostHint = 'image';
 

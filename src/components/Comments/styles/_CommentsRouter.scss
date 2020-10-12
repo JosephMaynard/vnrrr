@@ -1,6 +1,20 @@
 .CommentsRouter {
+  background-color: $color-background;
   border-left: solid 1px $color-border;
   overflow: hidden;
+  grid-area: comments;
+  transition: transform 0.3s;
+
+  @include breakpoint('mobile') {
+    grid-area: posts;
+    transform: translateX(100%) translateZ(0);
+  }
+
+  &_showComments {
+    @include breakpoint('mobile') {
+      transform: translateX(0) translateZ(0);
+    }
+  }
 
   &_selectPost {
     background-color: $color-background-secondary;

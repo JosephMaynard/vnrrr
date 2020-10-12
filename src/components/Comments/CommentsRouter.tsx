@@ -3,10 +3,20 @@ import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
 import Comments from './Comments';
 
-const CommentsRouter: React.FC = (): JSX.Element => {
+export interface IProps {
+  showComments?: boolean;
+}
+
+const CommentsRouter: React.FC<IProps> = ({
+  showComments,
+}: IProps): JSX.Element => {
   let { path } = useRouteMatch();
   return (
-    <div className="CommentsRouter">
+    <div
+      className={`CommentsRouter${
+        showComments ? ' CommentsRouter_showComments' : ''
+      }`}
+    >
       <Switch>
         <Route path={`${path}/comments/:postId`}>
           <Comments />

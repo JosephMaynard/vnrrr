@@ -50,10 +50,12 @@ const CommentBlock: React.FC<IProps> = ({
             comment.data.replies.data.children.length > 0 && (
               <div className="CommentBlock_replies">
                 {comment.data.replies.data.children.map(
-                  (reply): JSX.Element | null =>
-                    reply.data.name ? (
+                  (reply, index): JSX.Element | null =>
+                    reply.data.name &&
+                    reply.data.author &&
+                    reply.kind !== 'more' ? (
                       <CommentBlock
-                        key={reply.data.name}
+                        key={`${reply.data.name}${index}`}
                         comment={reply}
                         level={level + 1}
                       />

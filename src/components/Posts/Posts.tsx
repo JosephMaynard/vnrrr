@@ -30,7 +30,8 @@ const Posts: React.FC = () => {
     loading,
     currentSubreddit,
     keepCurrentSubreddit,
-  } = useSelector((state: TState) => state.posts);
+    showComments,
+  } = useSelector((state: TState) => ({ ...state.posts, ...state.ui }));
   const [page, setPage] = useState(1);
   const refresh = (): void => {
     dispatch(clearPosts());
@@ -62,7 +63,7 @@ const Posts: React.FC = () => {
   };
   return (
     <Layout subreddit={subreddit} refresh={refresh}>
-      <div className={`Posts${false ? ' Posts_showComments' : ''}`}>
+      <div className={`Posts${showComments ? ' Posts_showComments' : ''}`}>
         <ul className="Posts_ul">
           {posts.map((post) => (
             <PostItem
@@ -82,7 +83,7 @@ const Posts: React.FC = () => {
           {loading ? 'Loading Posts....' : 'Get More Posts'}
         </button>
       </div>
-      <CommentsRouter />
+      <CommentsRouter showComments={showComments} />
     </Layout>
   );
 };

@@ -2,6 +2,14 @@
   grid-area: posts;
   height: calc(100vh - #{$layout-header-height});
   overflow-y: auto;
+  transition: transform 0.3s;
+  transform: translateZ(0);
+
+  &_showComments {
+    @include breakpoint('mobile') {
+      transform: translateX(-100%) translateZ(0);
+    }
+  }
 
   &_getMorePostsButton {
     display: block;
