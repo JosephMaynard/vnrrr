@@ -1,7 +1,7 @@
 .Comments {
   overflow-x: hidden;
   overflow-y: auto;
-  max-height: calc(100vh - #{$layout-header-height});
+  height: calc(100vh - #{$layout-header-height});
 
   &_title {
     margin-bottom: 1rem;

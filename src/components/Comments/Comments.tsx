@@ -8,6 +8,7 @@ import { getComments, clearComments } from '../../store/comments/comments';
 import CommentBlock from './CommentBlock';
 import SVGIcon from '../SVGIcon/SVGIcon';
 import HTLMBlock from '../HTMLBlock/HTMLBlock';
+import LoadingScreen from '../LoadingScreen/LoadingScreen';
 
 import './styles/index.scss';
 
@@ -28,6 +29,7 @@ const Comments: React.FC = (): JSX.Element => {
   const commentData = comments ? comments[0].data.children[0].data : null;
   return (
     <div className="Comments">
+      {loading && <LoadingScreen text="Loading comments" />}
       {!loading && comments && commentData && (
         <>
           <div className="Comments_header">

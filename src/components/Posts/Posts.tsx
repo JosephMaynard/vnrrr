@@ -14,6 +14,7 @@ import { setShowComments } from '../../store/ui/ui';
 import Layout from '../Layout/Layout';
 import PostItem from './PostItem';
 import CommentsRouter from '../Comments/CommentsRouter';
+import LoadingScreen from '../LoadingScreen/LoadingScreen';
 
 import './styles/index.scss';
 
@@ -63,26 +64,30 @@ const Posts: React.FC = () => {
   };
   return (
     <Layout subreddit={subreddit} refresh={refresh}>
-      <div className={`Posts${showComments ? ' Posts_showComments' : ''}`}>
-        <ul className="Posts_ul">
-          {posts.map((post) => (
-            <PostItem
-              key={post.name}
-              post={post}
-              commentsOnClick={commentsOnClick}
-            />
-          ))}
-        </ul>
-        <Waypoint onEnter={getMorePosts} />
-        <button
-          className="Posts_getMorePostsButton"
-          onClick={getMorePosts}
-          type="button"
-          disabled={loading}
-        >
-          {loading ? 'Loading Posts....' : 'Get More Posts'}
-        </button>
-      </div>
+      {loading && posts.length === 0 ? (
+        <LoadingScreen text="Loading posts" />
+      ) : (
+        <div className={`Posts${showComments ? ' Posts_showComments' : ''}`}>
+          <ul className="Posts_ul">
+            {posts.map((post) => (
+              <PostItem
+                key={post.name}
+                post={post}
+                commentsOnClick={commentsOnClick}
+              />
+            ))}
+          </ul>
+          <Waypoint onEnter={getMorePosts} />
+          <button
+            className="Posts_getMorePostsButton"
+            onClick={getMorePosts}
+            type="button"
+            disabled={loading}
+          >
+            {loading ? 'Loading Posts....' : 'Get More Posts'}
+          </button>
+        </div>
+      )}
       <CommentsRouter showComments={showComments} />
     </Layout>
   );

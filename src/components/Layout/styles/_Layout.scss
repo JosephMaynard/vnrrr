@@ -9,6 +9,10 @@
     'header header'
     'posts comments';
 
+  @include breakpoint('small') {
+    grid-template-columns: 1fr 1fr;
+  }
+
   @include breakpoint('mobile') {
     grid-template-columns: 1fr;
     grid-template-areas:
@@ -23,13 +27,13 @@
     background-color: $color-primary;
     color: $color-primary-text;
     grid-area: header;
-    padding: 0 0.25rem 0 1rem;
+    padding: 0 0.25rem 0 0.75rem;
     box-shadow: 0 0.125rem 0.25rem $color-box-shadow;
 
     &_logo {
       width: 2.75rem;
       height: 2.75em;
-      margin-right: 1rem;
+      margin-right: 0.75rem;
     }
 
     &_textBlock {
@@ -38,7 +42,7 @@
   }
 
   &_backButton {
-    margin-left: -0.75rem;
+    margin-left: -0.5rem;
   }
 
   &_title {
