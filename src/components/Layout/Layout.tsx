@@ -1,6 +1,7 @@
 import React from 'react';
 
 import IconButton from '../IconButton/IconButton';
+import Logo from '../Logo/Logo';
 
 import './styles/index.scss';
 
@@ -17,6 +18,7 @@ const Layout: React.FC<IProps> = ({
 }: IProps): JSX.Element => (
   <div className="Layout">
     <header className="Layout_header">
+      <Logo className="Layout_header_logo" />
       <span className="Layout_header_textBlock">
         <h1 className="Layout_title">React Reddit</h1>
         <h2 className="Layout_subtitle">r/{subreddit}</h2>

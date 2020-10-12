@@ -6,42 +6,19 @@
   &_backgroundRing {
     fill: none;
     stroke: $color-secondary;
-    stroke-width: 3px;
-  }
-
-  &_backgroundRings,
-  &_rings {
-    transform-origin: 50% 50%;
-    animation: Logo_animation_rotate infinite 32s linear;
+    stroke-width: 5px;
   }
 
   &_ring {
     fill: none;
     stroke: $color-secondary;
-    stroke-width: 6px;
-    stroke-dasharray: 64;
-    stroke-dashoffset: 64;
-    stroke-linecap: round;
-    animation: Logo_animation_ring_dash infinite 9s linear;
-
-    &_2 {
-      animation-delay: -3s;
-    }
-
-    &_3 {
-      animation-delay: -6s;
-    }
-  }
-
-  &_head {
-    transform-origin: 50% 50%;
-    transform: scale(0.9) translateZ(0);
+    stroke-width: 4px;
   }
 
   &_eyes {
     fill: $color-danger;
     transform-origin: 50% 45%;
-    animation: Logo_animation_blink infinite 4s;
+    animation: Logo_animation_blink infinite 16s;
   }
 
   &_mouth {
@@ -61,15 +38,46 @@
     align-items: center;
     justify-content: center;
   }
+
+  &_head {
+    transform-origin: 50% 50%;
+    transform: scale(0.9) translateZ(0);
+  }
+
+  &_loading {
+    .Logo {
+      &_backgroundRings,
+      &_rings {
+        transform-origin: 50% 50%;
+        animation: Logo_animation_rotate infinite 32s linear;
+      }
+    }
+
+    &_ring {
+      stroke-width: 6px;
+      stroke-dasharray: 64;
+      stroke-dashoffset: 64;
+      stroke-linecap: round;
+      animation: Logo_animation_ring_dash infinite 9s linear;
+
+      &_2 {
+        animation-delay: -3s;
+      }
+
+      &_3 {
+        animation-delay: -6s;
+      }
+    }
+  }
 }
 
 @keyframes Logo_animation_blink {
   0%,
-  95%,
+  99%,
   100% {
     transform: scaleY(1);
   }
-  97.5% {
+  99.5% {
     transform: scaleY(0.2);
   }
 }
