@@ -16,4 +16,8 @@
     padding: 0.5rem;
     width: 100%;
   }
+
+  &_loadingScreen {
+    grid-area: posts;
+  }
 }

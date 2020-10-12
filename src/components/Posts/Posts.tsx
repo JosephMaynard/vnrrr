@@ -65,7 +65,7 @@ const Posts: React.FC = () => {
   return (
     <Layout subreddit={subreddit} refresh={refresh}>
       {loading && posts.length === 0 ? (
-        <LoadingScreen text="Loading posts" />
+        <LoadingScreen text="Loading posts" className="Posts_loadingScreen" />
       ) : (
         <div className={`Posts${showComments ? ' Posts_showComments' : ''}`}>
           <ul className="Posts_ul">
