@@ -6,6 +6,35 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: $color-text;
+
+  &::before {
+    content: 'not-set';
+    display: none;
+  }
+
+  @include breakpoint('mobile') {
+    &::before {
+      content: 'mobile';
+    }
+  }
+
+  @include breakpoint('small') {
+    &::before {
+      content: 'small';
+    }
+  }
+
+  @include breakpoint('medium') {
+    &::before {
+      content: 'medium';
+    }
+  }
+
+  @include breakpoint('large') {
+    &::before {
+      content: 'large';
+    }
+  }
 }
 
 code {
