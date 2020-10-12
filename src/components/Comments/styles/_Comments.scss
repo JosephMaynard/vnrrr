@@ -14,9 +14,12 @@
     &_link {
       color: $color-secondary;
       display: block;
-      word-break: break-word;
       font-size: 0.75rem;
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.5rem;
+      white-space: nowrap;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
       &_icon {
         display: inline-block;
@@ -28,6 +31,10 @@
         * {
           fill: $color-secondary;
         }
+      }
+
+      &:last-child {
+        margin-bottom: 0;
       }
     }
   }
