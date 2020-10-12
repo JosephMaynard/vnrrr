@@ -1,0 +1,92 @@
+.Logo {
+  height: 8rem;
+  width: 8rem;
+  display: block;
+
+  &_backgroundRing {
+    fill: none;
+    stroke: $color-secondary;
+    stroke-width: 1.5px;
+  }
+
+  &_backgroundRings,
+  &_rings {
+    transform-origin: 50% 50%;
+    animation: Logo_animation_rotate infinite 32s linear;
+  }
+
+  &_ring {
+    fill: none;
+    stroke: $color-secondary;
+    stroke-width: 0.25rem;
+    stroke-dasharray: 128;
+    stroke-dashoffset: 128;
+    stroke-linecap: round;
+    animation: Logo_animation_ring_dash infinite 9s linear;
+
+    &_2 {
+      animation-delay: -3s;
+    }
+
+    &_3 {
+      animation-delay: -6s;
+    }
+  }
+
+  &_head {
+    transform-origin: 50% 50%;
+    transform: scale(0.9) translateZ(0);
+  }
+
+  &_eyes {
+    fill: $color-danger;
+    transform-origin: 50% 45%;
+    animation: Logo_animation_blink infinite 4s;
+  }
+
+  &_mouth {
+    fill: $color-text;
+  }
+
+  &_headBackground {
+    fill: white;
+    stroke: $color-border;
+  }
+
+  &_previewWrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@keyframes Logo_animation_blink {
+  0%,
+  95%,
+  100% {
+    transform: scaleY(1);
+  }
+  97.5% {
+    transform: scaleY(0.2);
+  }
+}
+
+@keyframes Logo_animation_ring_dash {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: 256;
+  }
+}
+
+@keyframes Logo_animation_rotate {
+  from {
+    transform: rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}
