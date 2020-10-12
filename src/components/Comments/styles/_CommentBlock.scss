@@ -8,14 +8,28 @@
     'comment comment'
     'button replies';
 
+  &_icon {
+    width: 1.75rem;
+    height: 1.75rem;
+    flex-shrink: 0;
+    margin-right: 0.5rem;
+    transition: transform 0.1s;
+
+    * {
+      fill: $color-secondary;
+    }
+
+    &_collapsed {
+      transform: rotateZ(-90deg);
+    }
+  }
+
   &_header {
     border-bottom: solid 1px $color-border;
     grid-area: header;
     padding: 0.75rem 0.5rem;
-    border-bottom-left-radius: 0.125rem;
-    border-bottom-right-radius: 0.125rem;
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
+    display: flex;
+    align-items: center;
   }
 
   &_author {
@@ -32,7 +46,7 @@
     overflow: hidden;
     word-break: break-word;
     grid-area: comment;
-    padding: 0.5rem 1rem;
+    padding: 1rem 1.25rem;
     border-bottom: solid 1px $color-border;
   }
 

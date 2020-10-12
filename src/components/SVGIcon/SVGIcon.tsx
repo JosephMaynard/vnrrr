@@ -74,6 +74,10 @@ const showIcon = (icon: TIconType): JSX.Element => {
       return (
         <path d="M43,38.9l-11-11l-11,11l-3.4-3.4L32,21.1l14.3,14.4L43,38.9z" />
       );
+    case 'down-arrow':
+      return (
+        <path d="M20.9,25.1l11,11l11-11l3.4,3.4L31.9,42.9L17.6,28.5L20.9,25.1z" />
+      );
     case 'unknown':
       return (
         <path

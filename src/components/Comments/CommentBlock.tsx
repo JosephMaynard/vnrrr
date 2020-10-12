@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { IRedditPost } from '../../store/api-types';
 
 import HTMLBlock from '../HTMLBlock/HTMLBlock';
+import SVGIcon from '../SVGIcon/SVGIcon';
 
 export interface IProps {
   comment: IRedditPost;
@@ -20,6 +21,12 @@ const CommentBlock: React.FC<IProps> = ({
   return (
     <div className="CommentBlock">
       <div className="CommentBlock_header" onClick={toggleExpanded}>
+        <SVGIcon
+          icon="down-arrow"
+          className={`CommentBlock_icon${
+            expanded ? '' : ' CommentBlock_icon_collapsed'
+          }`}
+        />
         <span className="CommentBlock_author">{comment.data.author}</span>
         <span className="CommentBlock_pts">{comment.data.ups} pts</span>
       </div>
