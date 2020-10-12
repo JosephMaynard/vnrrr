@@ -51,21 +51,33 @@
         transform-origin: 50% 50%;
         animation: Logo_animation_rotate infinite 32s linear;
       }
-    }
 
-    &_ring {
-      stroke-width: 6px;
-      stroke-dasharray: 64;
-      stroke-dashoffset: 64;
-      stroke-linecap: round;
-      animation: Logo_animation_ring_dash infinite 9s linear;
+      &_ring {
+        stroke-width: 6px;
+        stroke-dasharray: 64;
+        stroke-dashoffset: 64;
+        stroke-linecap: round;
+        animation: Logo_animation_ring_dash infinite 9s linear;
 
-      &_2 {
-        animation-delay: -3s;
+        &_2 {
+          animation-delay: -3s;
+        }
+
+        &_3 {
+          animation-delay: -6s;
+        }
       }
 
-      &_3 {
-        animation-delay: -6s;
+      &_backgroundRing {
+        stroke-width: 3px;
+      }
+
+      &_head {
+        animation: Logo_animation_head_rock 2s infinite;
+      }
+
+      &_eyes {
+        animation: Logo_animation_blink_faster 4s infinite;
       }
     }
   }
@@ -78,6 +90,17 @@
     transform: scaleY(1);
   }
   99.5% {
+    transform: scaleY(0.2);
+  }
+}
+
+@keyframes Logo_animation_blink_faster {
+  0%,
+  95%,
+  100% {
+    transform: scaleY(1);
+  }
+  97.5% {
     transform: scaleY(0.2);
   }
 }
@@ -97,5 +120,19 @@
   }
   to {
     transform: rotateZ(360deg);
+  }
+}
+
+@keyframes Logo_animation_head_rock {
+  0%,
+  50%,
+  100% {
+    transform: scale(0.9) translateZ(0) rotateZ(0deg);
+  }
+  25% {
+    transform: scale(0.9) translateZ(0) rotateZ(-5deg);
+  }
+  75% {
+    transform: scale(0.9) translateZ(0) rotateZ(5deg);
   }
 }

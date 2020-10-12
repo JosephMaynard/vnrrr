@@ -28,7 +28,7 @@ const App: React.FC = (): JSX.Element => {
         </Route>
         <Route path="/logo">
           <div className="Logo_previewWrapper">
-            <Logo />
+            <Logo state="loading" />
           </div>
         </Route>
         <Redirect to="/r/all" />
