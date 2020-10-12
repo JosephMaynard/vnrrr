@@ -4,12 +4,12 @@
   max-height: calc(100vh - #{$layout-header-height});
 
   &_title {
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
   }
 
   &_header {
     border-bottom: solid 1px $color-border;
-    padding: 1rem;
+    padding: 1.5rem 1rem;
 
     &_link {
       color: $color-secondary;
@@ -38,6 +38,7 @@
   }
 
   &_commentBlocksWrapper {
-    padding: 1rem 0.75rem;
+    padding-left: 0.25rem;
+    background-color: $color-background-secondary;
   }
 }

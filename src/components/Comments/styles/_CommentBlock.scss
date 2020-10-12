@@ -1,26 +1,29 @@
 .CommentBlock {
+  background-color: $color-background;
   display: grid;
   grid-template-columns: 1rem 1fr;
   grid-template-rows: auto auto auto;
-  width: 100%;
   grid-template-areas:
     'header header'
     'comment comment'
     'button replies';
 
   &_header {
-    background-color: $color-primary;
-    color: $color-primary-text;
+    border-bottom: solid 1px $color-border;
     grid-area: header;
-    padding: 0.375rem 0.5rem;
+    padding: 0.75rem 0.5rem;
     border-bottom-left-radius: 0.125rem;
     border-bottom-right-radius: 0.125rem;
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
   }
 
+  &_author {
+    font-weight: 600;
+  }
+
   &_pts {
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     font-weight: 300;
     margin-left: 0.5rem;
   }
@@ -29,7 +32,8 @@
     overflow: hidden;
     word-break: break-word;
     grid-area: comment;
-    padding: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-bottom: solid 1px $color-border;
   }
 
   &_replies {
@@ -49,7 +53,7 @@
       content: '';
       position: absolute;
       top: 0;
-      right: 0.75rem;
+      right: 0.875rem;
       bottom: 0;
       left: 0;
       background-color: $color-secondary;
