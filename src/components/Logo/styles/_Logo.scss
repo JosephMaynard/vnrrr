@@ -6,7 +6,7 @@
   &_backgroundRing {
     fill: none;
     stroke: $color-secondary;
-    stroke-width: 1.5px;
+    stroke-width: 3px;
   }
 
   &_backgroundRings,
@@ -18,9 +18,9 @@
   &_ring {
     fill: none;
     stroke: $color-secondary;
-    stroke-width: 0.25rem;
-    stroke-dasharray: 128;
-    stroke-dashoffset: 128;
+    stroke-width: 6px;
+    stroke-dasharray: 64;
+    stroke-dashoffset: 64;
     stroke-linecap: round;
     animation: Logo_animation_ring_dash infinite 9s linear;
 
@@ -51,6 +51,7 @@
   &_headBackground {
     fill: white;
     stroke: $color-border;
+    stroke-width: 1.75 px;
   }
 
   &_previewWrapper {
