@@ -34,4 +34,6 @@ const ui = createSlice({
   },
 });
 
+export const { setShowComments, setDarkMode, setScreenProperties } = ui.actions;
+
 export default ui;
