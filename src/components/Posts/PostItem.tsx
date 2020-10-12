@@ -49,13 +49,20 @@ const PostItem: React.FC<IProps> = ({ post }: IProps): JSX.Element => {
       thumbnail &&
       thumbnail !== 'self' &&
       thumbnail !== 'default' &&
-      thumbnail !== 'image'
+      thumbnail !== 'image' &&
+      thumbnail !== 'nsfw'
     ) {
       return (
         <span
           className="PostItem_thumbnail"
           style={{ backgroundImage: `url(${thumbnail})` }}
         />
+      );
+    } else if (thumbnail === 'nsfw') {
+      return (
+        <span className="PostItem_thumbnail PostItem_thumbnail_nsfw">
+          <span className="PostItem_thumbnail_nsfw_text">NSFW</span>
+        </span>
       );
     }
     return (

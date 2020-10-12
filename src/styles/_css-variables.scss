@@ -3,6 +3,7 @@
   --colorPrimaryText: #fff;
   --colorSecondary: #00b4ff;
   --colorSecondaryText: #fff;
+  --colorDanger: #ff4500;
   --colorText: #111;
   --colorBackground1: #fff;
   --colorBackground2: #f5f5f5;
@@ -29,5 +30,7 @@ $color-modal-background: var(--colorModalBackground);
 $color-border: var(--colorBorder);
 
 $color-box-shadow: var(--colorBoxShadow);
+
+$color-danger: var(--colorDanger);
 
 $layout-header-height: var(--layoutHeaderHeight);

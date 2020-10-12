@@ -35,6 +35,17 @@
       font-size: 1.5rem;
       line-height: 0;
     }
+
+    &_nsfw {
+      background-color: $color-danger;
+
+      &_text {
+        color: white;
+        font-weight: 500;
+        font-size: 0.8rem;
+        line-height: 0;
+      }
+    }
   }
 
   &_text {
@@ -52,7 +63,7 @@
   }
 
   &_nsfw {
-    background-color: red;
+    background-color: $color-danger;
     border-radius: 0.25rem;
     color: white;
     font-size: 0.625rem;
