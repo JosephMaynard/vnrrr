@@ -48,8 +48,13 @@ const Posts: React.FC = () => {
           ))}
         </ul>
         <Waypoint onEnter={getMorePosts} />
-        <button onClick={getMorePosts} type="button" disabled={loading}>
-          Get More Posts
+        <button
+          className="Posts_getMorePostsButton"
+          onClick={getMorePosts}
+          type="button"
+          disabled={loading}
+        >
+          {loading ? 'Loading Posts....' : 'Get More Posts'}
         </button>
       </div>
       <CommentsRouter />

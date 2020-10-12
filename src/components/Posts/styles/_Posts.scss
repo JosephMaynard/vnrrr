@@ -1,5 +1,11 @@
 .Posts {
+  grid-area: posts;
   height: calc(100vh - #{$layout-header-height});
   overflow-y: auto;
-  grid-area: posts;
+
+  &_getMorePostsButton {
+    display: block;
+    padding: 0.5rem;
+    width: 100%;
+  }
 }
