@@ -15,7 +15,11 @@ const LoadingScreen: React.FC<IProps> = ({
   className,
   state = 'loading',
 }: IProps): JSX.Element => (
-  <div className={`LoadingScreen${className ? ` ${className}` : ''}`}>
+  <div
+    className={`LoadingScreen${state ? ` LoadingScreen_${state}` : ''}${
+      className ? ` ${className}` : ''
+    }`}
+  >
     <Logo state={state} />
     {text && <p className="LoadingScreen_text">{text}</p>}
   </div>

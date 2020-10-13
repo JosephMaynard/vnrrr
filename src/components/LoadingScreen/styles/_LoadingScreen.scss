@@ -6,10 +6,17 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  max-height: calc(100vh - #{$layout-header-height});
 
   &_text {
     font-size: 1.25rem;
     text-align: center;
+  }
+
+  &_disabled {
+    background-color: $color-background-secondary;
+
+    .LoadingScreen_text {
+      opacity: 0.6;
+    }
   }
 }
