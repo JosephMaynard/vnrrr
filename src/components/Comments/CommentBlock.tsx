@@ -19,7 +19,11 @@ const CommentBlock: React.FC<IProps> = ({
     setExpanded(!expanded);
   };
   return (
-    <div className="CommentBlock">
+    <div
+      className={`CommentBlock${
+        expanded ? ` CommentBlock_expanded CommentBlock_style_${level % 3}` : ''
+      }`}
+    >
       <div className="CommentBlock_header" onClick={toggleExpanded}>
         <SVGIcon
           icon="down-arrow"
@@ -40,9 +44,7 @@ const CommentBlock: React.FC<IProps> = ({
           )}
           <button
             type="button"
-            className={`CommentBlock_button CommentBlock_button_style_${
-              level % 3
-            }`}
+            className="CommentBlock_button"
             onClick={toggleExpanded}
           />
           {comment.data.replies &&

@@ -1,7 +1,7 @@
 .CommentBlock {
   background-color: $color-background;
   display: grid;
-  grid-template-columns: 1rem 1fr;
+  grid-template-columns: 0.75rem 1fr;
   grid-template-rows: auto auto auto;
   grid-template-areas:
     'header header'
@@ -12,7 +12,7 @@
     width: 1.75rem;
     height: 1.75rem;
     flex-shrink: 0;
-    margin-right: 0.5rem;
+    margin-right: 0.625rem;
     transition: transform 0.1s;
 
     * {
@@ -24,12 +24,62 @@
     }
   }
 
+  &_expanded {
+    > .CommentBlock {
+      &_header,
+      &_comment,
+      &_button {
+        &:before {
+          display: block;
+          content: '';
+          position: absolute;
+          top: 0;
+          bottom: -1px;
+          left: 0;
+          width: 0.125rem;
+          background-color: $color-secondary;
+        }
+      }
+    }
+
+    .CommentBlock_style_0 {
+      > .CommentBlock_header,
+      > .CommentBlock_comment,
+      > .CommentBlock_button {
+        &:before {
+          opacity: 1;
+        }
+      }
+    }
+
+    .CommentBlock_style_1 {
+      > .CommentBlock_header,
+      > .CommentBlock_comment,
+      > .CommentBlock_button {
+        &:before {
+          opacity: 0.65;
+        }
+      }
+    }
+
+    .CommentBlock_style_2 {
+      > .CommentBlock_header,
+      > .CommentBlock_comment,
+      > .CommentBlock_button {
+        &:before {
+          opacity: 0.3;
+        }
+      }
+    }
+  }
+
   &_header {
     border-bottom: solid 1px $color-border;
     grid-area: header;
-    padding: 0.75rem 0.5rem;
+    padding: 0.75rem 0.625rem;
     display: flex;
     align-items: center;
+    position: relative;
   }
 
   &_author {
@@ -48,6 +98,7 @@
     grid-area: comment;
     padding: 1rem 1.25rem;
     border-bottom: solid 1px $color-border;
+    position: relative;
   }
 
   &_replies {
@@ -61,34 +112,5 @@
     border: none;
     padding: 0;
     background-color: $color-background-secondary;
-
-    &:before {
-      display: block;
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0.875rem;
-      bottom: 0;
-      left: 0;
-      background-color: $color-secondary;
-    }
-
-    &_style_0 {
-      &:before {
-        opacity: 1;
-      }
-    }
-
-    &_style_1 {
-      &:before {
-        opacity: 0.7;
-      }
-    }
-
-    &_style_2 {
-      &:before {
-        opacity: 0.4;
-      }
-    }
   }
 }

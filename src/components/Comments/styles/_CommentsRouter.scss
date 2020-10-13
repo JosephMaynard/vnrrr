@@ -8,6 +8,7 @@
   @include breakpoint('mobile') {
     grid-area: posts;
     transform: translateX(100%) translateZ(0);
+    border-left: none;
   }
 
   &_showComments {
