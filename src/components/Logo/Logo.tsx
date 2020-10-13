@@ -2,7 +2,7 @@ import React from 'react';
 
 import './styles/index.scss';
 
-export type TLogoState = 'error' | 'loading';
+export type TLogoState = 'error' | 'loading' | 'static' | 'disabled';
 
 export interface IProps {
   title?: string;

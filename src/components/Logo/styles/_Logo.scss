@@ -21,7 +21,7 @@
     animation: Logo_animation_blink infinite 16s;
   }
 
-  &_mouth {
+  &_smile {
     fill: $color-text;
   }
 
@@ -78,6 +78,37 @@
 
       &_eyes {
         animation: Logo_animation_blink_faster 4s infinite;
+      }
+    }
+  }
+
+  &_disabled {
+    .Logo {
+      &_ring {
+        stroke: $color-text;
+        stroke-width: 6px;
+        opacity: 0.125;
+      }
+
+      &_eyes {
+        fill: $color-text;
+        opacity: 0.4;
+      }
+
+      &_smile {
+        opacity: 0.4;
+      }
+
+      &_backgroundRing {
+        stroke: none;
+      }
+
+      &_head {
+        transform: scale(0.925) translateZ(0);
+      }
+
+      &_headBackground {
+        stroke-width: 2px;
       }
     }
   }
