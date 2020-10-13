@@ -20,12 +20,14 @@ const Layout: React.FC<IProps> = ({
   children,
   subreddit,
 }: IProps): JSX.Element => {
-  const { showComments } = useSelector((state: TState) => state.ui);
+  const { showComments, cssBreakpoint } = useSelector(
+    (state: TState) => state.ui
+  );
   const dispatch = useDispatch();
   return (
     <div className="Layout">
       <header className="Layout_header">
-        {showComments && (
+        {showComments && cssBreakpoint === 'mobile' && (
           <IconButton
             icon="back"
             className="Layout_backButton"
