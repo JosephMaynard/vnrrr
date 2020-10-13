@@ -10,6 +10,7 @@ import CommentBlock from './CommentBlock';
 import SVGIcon from '../SVGIcon/SVGIcon';
 import HTLMBlock from '../HTMLBlock/HTMLBlock';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
+import Preview from '../Preview/Preview';
 
 import './styles/index.scss';
 
@@ -57,6 +58,7 @@ const Comments: React.FC = (): JSX.Element => {
               {`https://reddit.com${commentData.permalink}`}
             </a>
           </div>
+          {commentData.preview && <Preview preview={commentData.preview} />}
           {commentData.selftext_html && (
             <HTLMBlock
               className="Comments_selftext"
