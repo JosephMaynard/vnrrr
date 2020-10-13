@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
 import Comments from './Comments';
+import SelectPost from './SelectPost';
 
 export interface IProps {
   showComments?: boolean;
@@ -22,9 +23,7 @@ const CommentsRouter: React.FC<IProps> = ({
           <Comments />
         </Route>
         <Route>
-          <div className="CommentsRouter_selectPost">
-            <p>Select a post.</p>
-          </div>
+          <SelectPost />
         </Route>
       </Switch>
     </div>
