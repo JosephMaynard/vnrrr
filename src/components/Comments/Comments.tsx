@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import { TState } from '../../store';
 import { getComments, clearComments } from '../../store/comments/comments';
+import { setShowComments } from '../../store/ui/ui';
 
 import CommentBlock from './CommentBlock';
 import SVGIcon from '../SVGIcon/SVGIcon';
@@ -24,6 +25,7 @@ const Comments: React.FC = (): JSX.Element => {
   const loadComments = (): void => {
     dispatch(clearComments());
     dispatch(getComments({ subreddit, postId }));
+    dispatch(setShowComments(true));
   };
   useEffect(loadComments, [subreddit, postId]);
   const commentData = comments ? comments[0].data.children[0].data : null;
