@@ -1,0 +1,12 @@
+.Preview {
+  border-bottom: solid 1px $color-border;
+  background-color: $color-background-secondary;
+
+  &_video,
+  &_gif,
+  &_image {
+    display: block;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+}

@@ -2,6 +2,8 @@ import React, { useMemo } from 'react';
 
 import { IPostPreview } from '../../store/api-types';
 
+import './styles/index.scss';
+
 export interface IProps {
   preview: IPostPreview;
 }
@@ -30,7 +32,7 @@ const renderMedia = (preview: IPostPreview): JSX.Element => {
       />
     );
   } else if (preview.images && preview.images[0].source.url) {
-    return <img className="Preview_gif" src={preview.images[0].source.url} />;
+    return <img className="Preview_image" src={preview.images[0].source.url} />;
   }
   return <p>No media found</p>;
 };
