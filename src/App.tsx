@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
@@ -10,16 +10,20 @@ import Logo from './components/Logo/Logo';
 
 const App: React.FC = (): JSX.Element => {
   const dispatch = useDispatch();
+  const getAndSetScreenProperties = (): void => {
+    dispatch(setScreenProperties(getScreenProperties()));
+  };
+  const getAndSetScreenPropertiesCallback = useCallback(
+    getAndSetScreenProperties,
+    []
+  );
   useEffect(() => {
-    const getAndSetScreenProperties = (): void => {
-      dispatch(setScreenProperties(getScreenProperties()));
-    };
-    getAndSetScreenProperties();
-    window.addEventListener('resize', getAndSetScreenProperties);
+    getAndSetScreenPropertiesCallback();
+    window.addEventListener('resize', getAndSetScreenPropertiesCallback);
     return () => {
-      window.removeEventListener('resize', getAndSetScreenProperties);
+      window.removeEventListener('resize', getAndSetScreenPropertiesCallback);
     };
-  }, []);
+  }, [getAndSetScreenPropertiesCallback]);
   return (
     <BrowserRouter>
       <Switch>

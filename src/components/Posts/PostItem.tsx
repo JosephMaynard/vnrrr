@@ -51,7 +51,7 @@ const PostItem: React.FC<IProps> = ({
         {title}
       </a>
     );
-  }, [url, title]);
+  }, [url, title, commentsOnClick]);
   const postThumbnail = useMemo(() => {
     if (
       thumbnail &&

@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IUIReducer } from './types';
 
 const initialState: IUIReducer = {
