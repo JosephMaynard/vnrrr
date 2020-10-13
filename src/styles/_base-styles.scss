@@ -12,15 +12,9 @@ body {
     display: none;
   }
 
-  @include breakpoint('mobile') {
+  @include breakpoint('large') {
     &::before {
-      content: 'mobile';
-    }
-  }
-
-  @include breakpoint('small') {
-    &::before {
-      content: 'small';
+      content: 'large';
     }
   }
 
@@ -30,9 +24,15 @@ body {
     }
   }
 
-  @include breakpoint('large') {
+  @include breakpoint('small') {
     &::before {
-      content: 'large';
+      content: 'small';
+    }
+  }
+
+  @include breakpoint('mobile') {
+    &::before {
+      content: 'mobile';
     }
   }
 }
