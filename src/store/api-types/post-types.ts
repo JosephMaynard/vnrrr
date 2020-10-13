@@ -1,9 +1,3 @@
-export interface IRedditImageItem {
-  url: string;
-  width: number;
-  height: number;
-}
-
 export interface IRedditAward {
   giver_coin_reward: null;
   subreddit_id: string | null;
@@ -17,7 +11,7 @@ export interface IRedditAward {
   icon_url: string;
   days_of_premium: number;
   tiers_by_required_awardings: null;
-  resized_icons: IRedditImageItem[];
+  resized_icons: IRedditMediaItem[];
   icon_width: number;
   static_icon_width: number;
   start_date: null;
@@ -29,7 +23,7 @@ export interface IRedditAward {
   count: number;
   static_icon_height: number;
   name: string;
-  resized_static_icons: IRedditImageItem[];
+  resized_static_icons: IRedditMediaItem[];
   icon_format: null;
   icon_height: number;
   penny_price: null;
@@ -43,6 +37,44 @@ export type TRedditPostHint = 'image';
 
 export interface IAuthorFlairRichtext {
   [key: string]: string;
+}
+
+export interface IRedditMediaItem {
+  url: string;
+  width: number;
+  height: number;
+}
+
+export interface IPostPreview {
+  images?: [
+    {
+      source: IRedditMediaItem;
+      resolutions: IRedditMediaItem[];
+      variants?: {
+        gif: {
+          source: IRedditMediaItem;
+          resolutions: IRedditMediaItem[];
+        };
+        mp4: {
+          source: IRedditMediaItem;
+          resolutions: IRedditMediaItem[];
+        };
+      };
+      id: string;
+    }
+  ];
+  reddit_video_preview?: {
+    fallback_url: string;
+    height: number;
+    width: number;
+    scrubber_media_url: string;
+    dash_url: string;
+    duration: number;
+    hls_url: string;
+    is_gif: boolean;
+    transcoding_status: 'completed';
+  };
+  enabled: boolean;
 }
 
 export interface IRedditPostData {
@@ -115,17 +147,7 @@ export interface IRedditPostData {
   is_crosspostable: boolean;
   pinned: boolean;
   over_18: boolean;
-  preview: {
-    images: [
-      {
-        source: IRedditImageItem;
-        resolutions: IRedditImageItem[];
-        variants: {};
-        id: string;
-      }
-    ];
-    enabled: boolean;
-  };
+  preview: IPostPreview;
   all_awardings: IRedditAward[];
   awarders: [];
   media_only: boolean;
