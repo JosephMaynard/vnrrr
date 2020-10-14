@@ -1,44 +1,66 @@
 import React, { useMemo } from 'react';
 
-import { IPostPreview } from '../../store/api-types';
+import { IRedditPostData } from '../../store/api-types';
 
 import './styles/index.scss';
 
 export interface IProps {
-  preview: IPostPreview;
+  post: IRedditPostData;
 }
-const renderMedia = (preview: IPostPreview): JSX.Element => {
-  if (preview.reddit_video_preview?.fallback_url) {
+const renderMedia = (post: IRedditPostData): JSX.Element => {
+  if (post.secure_media?.reddit_video?.fallback_url) {
     return (
       <video
         className="Preview_video"
-        src={preview.reddit_video_preview.fallback_url}
+        src={post.secure_media.reddit_video.fallback_url}
         controls
+        autoPlay
+        height={post.secure_media.reddit_video.height}
+        width={post.secure_media.reddit_video.width}
       />
     );
-  } else if (preview.images && preview.images[0].variants?.mp4?.source?.url) {
+  } else if (post.preview.reddit_video_preview?.fallback_url) {
     return (
       <video
         className="Preview_video"
-        src={preview.images[0].variants.mp4.source.url}
+        src={post.preview.reddit_video_preview.fallback_url}
+        controls
+        autoPlay
+        height={post.preview.reddit_video_preview.height}
+        width={post.preview.reddit_video_preview.width}
+      />
+    );
+  } else if (
+    post.preview.images &&
+    post.preview.images[0].variants?.mp4?.source?.url
+  ) {
+    return (
+      <video
+        className="Preview_video"
+        src={post.preview.images[0].variants.mp4.source.url}
         controls
       />
     );
-  } else if (preview.images && preview.images[0].variants?.gif?.source?.url) {
+  } else if (
+    post.preview.images &&
+    post.preview.images[0].variants?.gif?.source?.url
+  ) {
     return (
       <img
         className="Preview_gif"
-        src={preview.images[0].variants.gif.source.url}
+        src={post.preview.images[0].variants.gif.source.url}
       />
     );
-  } else if (preview.images && preview.images[0].source.url) {
-    return <img className="Preview_image" src={preview.images[0].source.url} />;
+  } else if (post.preview.images && post.preview.images[0].source.url) {
+    return (
+      <img className="Preview_image" src={post.preview.images[0].source.url} />
+    );
   }
   return <p>No media found</p>;
 };
 
-const Preview: React.FC<IProps> = ({ preview }: IProps): JSX.Element => {
-  const media = useMemo(() => renderMedia(preview), [preview]);
+const Preview: React.FC<IProps> = ({ post }: IProps): JSX.Element => {
+  const media = useMemo(() => renderMedia(post), [post]);
   return <div className="Preview">{media}</div>;
 };
 

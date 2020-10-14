@@ -58,7 +58,7 @@ const Comments: React.FC = (): JSX.Element => {
               {`https://reddit.com${commentData.permalink}`}
             </a>
           </div>
-          {commentData.preview && <Preview preview={commentData.preview} />}
+          {commentData.preview && <Preview post={commentData} />}
           {commentData.selftext_html && (
             <HTLMBlock
               className="Comments_selftext"
