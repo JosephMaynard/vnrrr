@@ -7,6 +7,9 @@ import { TRedditCommentsResponse } from '../api-types';
 const initialState: ICommentsReducer = {
   loading: true,
   error: false,
+  postLoaded: false,
+  post: null,
+  commentsLoaded: false,
   comments: null,
 };
 
@@ -32,22 +35,29 @@ const comments = createSlice({
     clearComments: (state) => {
       state.loading = true;
       state.error = false;
+      state.commentsLoaded = false;
       state.comments = null;
+      state.postLoaded = false;
+      state.post = null;
     },
   },
   extraReducers: {
-    [getComments.pending.toString()]: (state) => {
+    [getComments.pending.toString()]: (state, action) => {
+      console.log({ action });
       state.loading = true;
       state.error = false;
+      state.commentsLoaded = false;
       state.comments = null;
     },
     [getComments.fulfilled.toString()]: (
       state,
       action: PayloadAction<TRedditCommentsResponse>
     ) => {
-      state.comments = action.payload;
       state.loading = false;
       state.error = false;
+      state.commentsLoaded = true;
+      state.comments = action.payload[1].data.children;
+      state.post = action.payload[0].data.children[0].data;
     },
   },
 });

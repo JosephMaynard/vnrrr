@@ -21,7 +21,9 @@ export interface IParamTypes {
 
 const Comments: React.FC = (): JSX.Element => {
   let { subreddit, postId } = useParams<IParamTypes>();
-  const { comments, loading } = useSelector((state: TState) => state.comments);
+  const { comments, post, loading } = useSelector(
+    (state: TState) => state.comments
+  );
   const dispatch = useDispatch();
   const loadComments = (): void => {
     dispatch(clearComments());
@@ -29,44 +31,43 @@ const Comments: React.FC = (): JSX.Element => {
     dispatch(setShowComments(true));
   };
   useEffect(loadComments, [subreddit, postId]);
-  const commentData = comments ? comments[0].data.children[0].data : null;
   return (
     <div className="Comments">
       {loading && <LoadingScreen text="Loading comments" />}
-      {!loading && comments && commentData && (
+      {!loading && post && comments && (
         <>
           <div className="Comments_header">
-            <h2 className="Comments_title">{commentData.title}</h2>
-            {commentData.domain.split('.')[0] !== 'self' && (
+            <h2 className="Comments_title">{post.title}</h2>
+            {post.domain.split('.')[0] !== 'self' && (
               <a
-                href={commentData.url}
+                href={post.url}
                 className="Comments_header_link"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <SVGIcon icon="launch" className="Comments_header_link_icon" />
-                {commentData.url}
+                {post.url}
               </a>
             )}
             <a
-              href={`https://reddit.com${commentData.permalink}`}
+              href={`https://reddit.com${post.permalink}`}
               className="Comments_header_link"
               target="_blank"
               rel="noopener noreferrer"
             >
               <SVGIcon icon="launch" className="Comments_header_link_icon" />
-              {`https://reddit.com${commentData.permalink}`}
+              {`https://reddit.com${post.permalink}`}
             </a>
           </div>
-          {commentData.preview && <Preview post={commentData} />}
-          {commentData.selftext_html && (
+          {post.preview && <Preview post={post} />}
+          {post.selftext_html && (
             <HTLMBlock
               className="Comments_selftext"
-              html={commentData.selftext_html}
+              html={post.selftext_html}
             />
           )}
           <div className="Comments_commentBlocksWrapper">
-            {comments[1].data.children.map(
+            {comments.map(
               (comment): JSX.Element => (
                 <CommentBlock comment={comment} />
               )
