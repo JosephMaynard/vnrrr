@@ -1,7 +1,7 @@
 .CommentBlock {
   background-color: $color-background;
   display: grid;
-  grid-template-columns: 0.75rem 1fr;
+  grid-template-columns: 1rem 1fr;
   grid-template-rows: auto auto auto;
   grid-template-areas:
     'header header'
