@@ -21,20 +21,21 @@ export interface IParamTypes {
 
 const Comments: React.FC = (): JSX.Element => {
   let { subreddit, postId } = useParams<IParamTypes>();
-  const { comments, post, loading } = useSelector(
+  const { comments, post, postLoaded, commentsLoaded } = useSelector(
     (state: TState) => state.comments
   );
   const dispatch = useDispatch();
   const loadComments = (): void => {
-    dispatch(clearComments());
+    dispatch(clearComments(postId));
     dispatch(getComments({ subreddit, postId }));
     dispatch(setShowComments(true));
   };
   useEffect(loadComments, [subreddit, postId]);
   return (
     <div className="Comments">
-      {loading && <LoadingScreen text="Loading comments" />}
-      {!loading && post && comments && (
+      {!postLoaded || !post ? (
+        <LoadingScreen text="Loading comments" />
+      ) : (
         <>
           <div className="Comments_header">
             <h2 className="Comments_title">{post.title}</h2>
@@ -66,13 +67,20 @@ const Comments: React.FC = (): JSX.Element => {
               html={post.selftext_html}
             />
           )}
-          <div className="Comments_commentBlocksWrapper">
-            {comments.map(
-              (comment): JSX.Element => (
-                <CommentBlock comment={comment} />
-              )
-            )}
-          </div>
+          {commentsLoaded && comments ? (
+            <div className="Comments_commentBlocks_wrapper">
+              {comments.map(
+                (comment): JSX.Element => (
+                  <CommentBlock comment={comment} />
+                )
+              )}
+            </div>
+          ) : (
+            <LoadingScreen
+              className="Comments_commentBlocks_loading"
+              text="Loading comments"
+            />
+          )}
         </>
       )}
     </div>

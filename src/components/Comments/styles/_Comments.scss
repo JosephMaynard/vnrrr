@@ -44,8 +44,14 @@
     padding: 1rem;
   }
 
-  &_commentBlocksWrapper {
-    background-color: $color-background-secondary;
-    padding-right: 0.125rem;
+  &_commentBlocks {
+    &_wrapper {
+      background-color: $color-background-secondary;
+      padding-right: 0.125rem;
+    }
+
+    &_loading {
+      height: 14rem;
+    }
   }
 }

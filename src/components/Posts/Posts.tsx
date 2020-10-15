@@ -9,7 +9,9 @@ import {
   clearPosts,
   setKeepCurrentSubreddit,
 } from '../../store/posts/posts';
+import { setPost } from '../../store/comments/comments';
 import { setShowComments } from '../../store/ui/ui';
+import { IRedditPostData } from '../../store/api-types';
 
 import Layout from '../Layout/Layout';
 import PostItem from './PostItem';
@@ -58,7 +60,8 @@ const Posts: React.FC = () => {
       setPage(page + 1);
     }
   };
-  const commentsOnClick = (): void => {
+  const commentsOnClick = (post: IRedditPostData) => (): void => {
+    dispatch(setPost(post));
     dispatch(setKeepCurrentSubreddit(true));
     dispatch(setShowComments(true));
   };
@@ -73,7 +76,7 @@ const Posts: React.FC = () => {
               <PostItem
                 key={post.name}
                 post={post}
-                commentsOnClick={commentsOnClick}
+                commentsOnClick={commentsOnClick(post)}
               />
             ))}
           </ul>
