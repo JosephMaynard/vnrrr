@@ -26,6 +26,7 @@ const PostItem: React.FC<IProps> = ({
     id,
     num_comments,
     ups,
+    permalink,
   } = post;
   const postTitle = useMemo(() => {
     if (url === undefined || url === '') {
@@ -33,7 +34,7 @@ const PostItem: React.FC<IProps> = ({
     } else if (url.substr(0, 23) === 'https://www.reddit.com/') {
       return (
         <Link
-          to={url.substr(22)}
+          to={permalink}
           className="PostItem_postTitle"
           onClick={commentsOnClick}
         >
@@ -112,7 +113,7 @@ const PostItem: React.FC<IProps> = ({
         </span>
       </span>
       <Link
-        to={`/${subreddit_name_prefixed}/comments/${id}`}
+        to={permalink}
         className="PostItem_commentsLink"
         onClick={commentsOnClick}
       >
