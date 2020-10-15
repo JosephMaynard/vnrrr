@@ -49,11 +49,16 @@ const renderMedia = (post: IRedditPostData): JSX.Element => {
       <img
         className="Preview_gif"
         src={post.preview.images[0].variants.gif.source.url}
+        alt={post.title}
       />
     );
   } else if (post.preview.images && post.preview.images[0].source.url) {
     return (
-      <img className="Preview_image" src={post.preview.images[0].source.url} />
+      <img
+        className="Preview_image"
+        src={post.preview.images[0].source.url}
+        alt={post.title}
+      />
     );
   }
   return <p>No media found</p>;
