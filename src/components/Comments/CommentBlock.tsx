@@ -4,6 +4,7 @@ import { IRedditPost } from '../../store/api-types';
 
 import HTMLBlock from '../HTMLBlock/HTMLBlock';
 import SVGIcon from '../SVGIcon/SVGIcon';
+import Timestamp from '../Timestamp/Timestamp';
 
 export interface IProps {
   comment: IRedditPost;
@@ -39,6 +40,11 @@ const CommentBlock: React.FC<IProps> = ({
           {comment.data.author}
         </span>
         <span className="CommentBlock_pts">{comment.data.ups} pts</span>
+        <Timestamp
+          createdUTC={comment.data.created_utc}
+          className="CommentBlock_timestamp"
+          showFullTime
+        />
       </div>
       {expanded && (
         <>

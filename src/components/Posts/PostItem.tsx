@@ -5,6 +5,7 @@ import { IRedditPostData } from '../../store/api-types';
 import { stringToHashedColour } from '../../utils/colour-utils';
 
 import SVGIcon from '../SVGIcon/SVGIcon';
+import Timestamp from '../Timestamp/Timestamp';
 
 export interface IProps {
   post: IRedditPostData;
@@ -29,6 +30,7 @@ const PostItem: React.FC<IProps> = ({
     permalink,
     is_reddit_media_domain,
     is_self,
+    created_utc,
   } = post;
   const postTitle = useMemo(() => {
     if (url === undefined || url === '') {
@@ -116,6 +118,10 @@ const PostItem: React.FC<IProps> = ({
             >
               {subreddit_name_prefixed}
             </Link>
+            <Timestamp
+              createdUTC={created_utc}
+              className="PostItem_timestamp"
+            />
           </span>
         </span>
       </span>

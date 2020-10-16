@@ -13,6 +13,7 @@ import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import Preview from '../Preview/Preview';
 
 import './styles/index.scss';
+import Timestamp from '../Timestamp/Timestamp';
 
 export interface IParamTypes {
   subreddit: string;
@@ -40,6 +41,13 @@ const Comments: React.FC = (): JSX.Element => {
           <div className="Comments_header">
             <h2 className="Comments_title">{post.title}</h2>
             <p>{post.author}</p>
+            <p>
+              <Timestamp
+                createdUTC={post.created_utc}
+                className="CommentBlock_timestamp"
+                showFullTime
+              />
+            </p>
             <Link className="Comments_header_link" to={`r/${post.subreddit}`}>
               r/{post.subreddit}
             </Link>
