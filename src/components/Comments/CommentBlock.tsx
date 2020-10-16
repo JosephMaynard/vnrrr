@@ -31,7 +31,13 @@ const CommentBlock: React.FC<IProps> = ({
             expanded ? '' : ' CommentBlock_icon_collapsed'
           }`}
         />
-        <span className="CommentBlock_author">{comment.data.author}</span>
+        <span
+          className={`CommentBlock_author${
+            comment.data.is_submitter ? ' CommentBlock_author_isSubmitter' : ''
+          }`}
+        >
+          {comment.data.author}
+        </span>
         <span className="CommentBlock_pts">{comment.data.ups} pts</span>
       </div>
       {expanded && (

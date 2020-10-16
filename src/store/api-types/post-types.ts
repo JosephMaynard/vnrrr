@@ -129,6 +129,7 @@ export interface IRedditPostData {
   is_reddit_media_domain: boolean;
   is_robot_indexable: boolean;
   is_self: boolean;
+  is_submitter: boolean;
   is_video: boolean;
   likes: null;
   link_flair_background_color: string;
