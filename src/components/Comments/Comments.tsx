@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import { TState } from '../../store';
 import { getComments, clearComments } from '../../store/comments/comments';
@@ -39,6 +39,10 @@ const Comments: React.FC = (): JSX.Element => {
         <>
           <div className="Comments_header">
             <h2 className="Comments_title">{post.title}</h2>
+            <p>{post.author}</p>
+            <Link className="Comments_header_link" to={`r/${post.subreddit}`}>
+              r/{post.subreddit}
+            </Link>
             {post.domain.split('.')[0] !== 'self' && (
               <a
                 href={post.url}
