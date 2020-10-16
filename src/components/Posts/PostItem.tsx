@@ -27,11 +27,17 @@ const PostItem: React.FC<IProps> = ({
     num_comments,
     ups,
     permalink,
+    is_reddit_media_domain,
+    is_self,
   } = post;
   const postTitle = useMemo(() => {
     if (url === undefined || url === '') {
       return <p className="PostItem_postTitle">{title}</p>;
-    } else if (url.substr(0, 23) === 'https://www.reddit.com/') {
+    } else if (
+      url.substr(0, 23) === 'https://www.reddit.com/' ||
+      is_reddit_media_domain ||
+      is_self
+    ) {
       return (
         <Link
           to={permalink}
@@ -50,6 +56,7 @@ const PostItem: React.FC<IProps> = ({
         rel="noopener noreferrer"
       >
         {title}
+        <SVGIcon className="PostItem_postTitle_icon" icon="launch" />
       </a>
     );
   }, [url, title, commentsOnClick]);
