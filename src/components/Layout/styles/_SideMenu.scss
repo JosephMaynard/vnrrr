@@ -1,0 +1,28 @@
+.SideMenu {
+  grid-column: 2/3;
+  grid-row: 1/3;
+  background-color: $color-background;
+  position: relative;
+  padding: 2rem;
+
+  &_closeButton {
+    * {
+      fill: $color-text;
+    }
+  }
+
+  &_slide-enter,
+  &_slide-exit {
+    transform: translateX(17rem) translateZ(0);
+    transition-timing-function: ease-in;
+  }
+
+  &_slide-enter.SideMenu_slide-enter-active {
+    transform: translateX(0) translateZ(0);
+    transition-timing-function: ease-out;
+  }
+
+  @include breakpoint('mobile') {
+    grid-column: 1/2;
+  }
+}
