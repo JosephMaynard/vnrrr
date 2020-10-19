@@ -43,7 +43,6 @@ const CommentBlock: React.FC<IProps> = ({
         <Timestamp
           createdUTC={comment.data.created_utc}
           className="CommentBlock_timestamp"
-          showFullTime
         />
       </div>
       {expanded && (

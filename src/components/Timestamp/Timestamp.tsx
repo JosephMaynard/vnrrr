@@ -19,10 +19,20 @@ const Timestamp: React.FC<IProps> = ({
   const timestampData = useMemo<ITimestampData>(() => {
     const timeCreated = new Date(createdUTC * 1000);
     const secondsSince = Math.round(new Date().getTime() / 1000) - createdUTC;
-    const timeSince =
-      secondsSince < 43200
-        ? `${Math.round(secondsSince / 3600)}h`
-        : `${Math.round(secondsSince / 43200)}d`;
+    let timeSince: string;
+    if (secondsSince < 3600) {
+      timeSince = `${Math.round(secondsSince / 60)}${
+        showFullTime ? ' minutes ago' : 'm'
+      }`;
+    } else if (secondsSince < 43200) {
+      timeSince = `${Math.round(secondsSince / 3600)}${
+        showFullTime ? ' hours ago' : 'h'
+      }`;
+    } else {
+      timeSince = `${Math.round(secondsSince / 43200)}${
+        showFullTime ? ' days ago' : 'd'
+      }`;
+    }
     return {
       timeSince,
       fullTime: timeCreated.toLocaleString('en-GB', { timeZone: 'UTC' }),
@@ -31,7 +41,7 @@ const Timestamp: React.FC<IProps> = ({
   return (
     <span className={className}>
       {timestampData.timeSince}
-      {showFullTime && ` - ${timestampData.fullTime}`}
+      {showFullTime && ` (${timestampData.fullTime})`}
     </span>
   );
 };
