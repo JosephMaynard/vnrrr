@@ -1,10 +1,16 @@
 .IconButton {
+  outline: none;
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
   display: block;
   width: 2.5rem;
   height: 2.5rem;
   padding: 0.25rem;
-  background-color: transparent;
-  border: none;
+
+  &:active {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
 
   &_icon {
     width: 2rem;
