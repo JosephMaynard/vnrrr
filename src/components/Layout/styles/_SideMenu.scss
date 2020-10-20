@@ -4,11 +4,16 @@
   background-color: $color-background;
   position: relative;
   padding: 2rem;
+  box-shadow: -0.5rem 0 1rem rgba(0, 0, 0, 0.3);
 
   &_closeButton {
     * {
       fill: $color-text;
     }
+  }
+
+  &_link {
+    display: block;
   }
 
   &_slide-enter,

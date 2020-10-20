@@ -22,10 +22,13 @@ import './styles/index.scss';
 
 export interface IParamTypes {
   subreddit: string;
-  postId?: string;
 }
 
-const Posts: React.FC = () => {
+export interface IProps {
+  isFrontPage?: boolean;
+}
+
+const Posts: React.FC<IProps> = ({ isFrontPage }: IProps) => {
   let { subreddit } = useParams<IParamTypes>();
   const dispatch = useDispatch();
   const {
@@ -38,16 +41,19 @@ const Posts: React.FC = () => {
   const [page, setPage] = useState(1);
   const refresh = (): void => {
     dispatch(clearPosts());
-    dispatch(getPosts({ subreddit }));
+    dispatch(getPosts({ subreddit, isFrontPage }));
   };
   const initialLoad = (): void => {
-    if (keepCurrentSubreddit === true || currentSubreddit === subreddit) {
+    if (
+      !isFrontPage &&
+      (keepCurrentSubreddit === true || currentSubreddit === subreddit)
+    ) {
       dispatch(setKeepCurrentSubreddit(false));
     } else {
       refresh();
     }
   };
-  useEffect(initialLoad, [subreddit]);
+  useEffect(initialLoad, [subreddit, isFrontPage]);
   const getMorePosts = (): void => {
     if (!loading) {
       dispatch(
@@ -55,6 +61,7 @@ const Posts: React.FC = () => {
           subreddit,
           page: page + 1,
           after: posts[posts.length - 1].name,
+          isFrontPage,
         })
       );
       setPage(page + 1);
@@ -66,7 +73,10 @@ const Posts: React.FC = () => {
     dispatch(setShowComments(true));
   };
   return (
-    <Layout subreddit={subreddit} refresh={refresh}>
+    <Layout
+      title={isFrontPage ? 'Frontpage' : `r/${subreddit}`}
+      refresh={refresh}
+    >
       {loading && posts.length === 0 ? (
         <LoadingScreen text="Loading posts" className="Posts_loadingScreen" />
       ) : (

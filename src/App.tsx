@@ -27,6 +27,9 @@ const App: React.FC = (): JSX.Element => {
   return (
     <BrowserRouter>
       <Switch>
+        <Route path="/" exact>
+          <Posts isFrontPage />
+        </Route>
         <Route path="/r/:subreddit">
           <Posts />
         </Route>
@@ -35,7 +38,7 @@ const App: React.FC = (): JSX.Element => {
             <Logo state="loading" />
           </div>
         </Route>
-        <Redirect to="/r/all" />
+        <Redirect to="/" />
       </Switch>
     </BrowserRouter>
   );

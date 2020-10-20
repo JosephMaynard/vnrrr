@@ -12,20 +12,21 @@ const initialState: IPostsReducer = {
 };
 
 export interface IGetPostsOptions {
-  subreddit: string;
+  subreddit?: string;
   after?: string;
   page?: number;
+  isFrontPage?: boolean;
 }
 
 export const getPosts = createAsyncThunk(
   'posts/getPosts',
   async (options: IGetPostsOptions) => {
     const response = await axios.get(
-      `https://www.reddit.com/r/${options.subreddit}.json?${
-        options.after || options.page ? 'count=25' : ''
-      }${options.page ? `&page=${options.page}` : ''}${
-        options.after ? `&after=${options.after}` : ''
-      }&raw_json=1`
+      `https://www.reddit.com/${
+        options.isFrontPage ? 'best' : `r/${options.subreddit}`
+      }.json?${options.after || options.page ? 'count=25' : ''}${
+        options.page ? `&page=${options.page}` : ''
+      }${options.after ? `&after=${options.after}` : ''}&raw_json=1`
     );
     return {
       response: response.data,

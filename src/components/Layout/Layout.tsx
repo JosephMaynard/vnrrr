@@ -14,13 +14,13 @@ import './styles/index.scss';
 export interface IProps {
   refresh: () => void;
   children?: React.ReactNode;
-  subreddit: string;
+  title: string;
 }
 
 const Layout: React.FC<IProps> = ({
   refresh,
   children,
-  subreddit,
+  title,
 }: IProps): JSX.Element => {
   const { showComments, cssBreakpoint, sideMenuOpen } = useSelector(
     (state: TState) => state.ui
@@ -42,7 +42,7 @@ const Layout: React.FC<IProps> = ({
         <Logo className="Layout_header_logo" />
         <span className="Layout_header_textBlock">
           <h1 className="Layout_title">React Reddit</h1>
-          <h2 className="Layout_subtitle">r/{subreddit}</h2>
+          <h2 className="Layout_subtitle">{title}</h2>
         </span>
         <IconButton icon="refresh" onClick={refresh} label="Refresh posts" />
         <IconButton

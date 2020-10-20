@@ -14,7 +14,10 @@ const SideMenu: React.FC<IProps> = ({ close }: IProps): JSX.Element => {
         onClick={close}
         className="SideMenu_closeButton"
       />
-      <Link to="/r/all" onClick={close}>
+      <Link to="/" onClick={close} className="SideMenu_link">
+        Frontpage
+      </Link>
+      <Link to="/r/all" onClick={close} className="SideMenu_link">
         /r/all
       </Link>
     </div>
