@@ -6,9 +6,11 @@ export interface IProps {
   close: () => void;
 }
 
-const SideMenu: React.FC<IProps> = ({ close }: IProps): JSX.Element => {
-  return (
-    <div className="SideMenu">
+export type TRef = HTMLDivElement;
+
+const SideMenu = React.forwardRef<TRef, IProps>(
+  ({ close }: IProps, ref): JSX.Element => (
+    <div ref={ref} className="SideMenu">
       <IconButton
         icon="cancel"
         onClick={close}
@@ -21,7 +23,7 @@ const SideMenu: React.FC<IProps> = ({ close }: IProps): JSX.Element => {
         /r/all
       </Link>
     </div>
-  );
-};
+  )
+);
 
 export default SideMenu;

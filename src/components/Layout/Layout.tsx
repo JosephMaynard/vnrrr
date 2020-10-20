@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
@@ -26,6 +26,7 @@ const Layout: React.FC<IProps> = ({
     (state: TState) => state.ui
   );
   const dispatch = useDispatch();
+  const sideMenuRef = React.useRef(null);
   return (
     <div className="Layout">
       <header className="Layout_header">
@@ -56,8 +57,13 @@ const Layout: React.FC<IProps> = ({
       {children}
       <TransitionGroup component={null}>
         {sideMenuOpen && (
-          <CSSTransition classNames="SideMenu_slide" timeout={250}>
+          <CSSTransition
+            nodeRef={sideMenuRef}
+            classNames="SideMenu_slide"
+            timeout={{ enter: 0, exit: 300 }}
+          >
             <SideMenu
+              ref={sideMenuRef}
               close={(): void => {
                 dispatch(setSideMenuOpen(false));
               }}
