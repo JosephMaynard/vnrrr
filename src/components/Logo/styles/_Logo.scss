@@ -3,10 +3,22 @@
   width: 7rem;
   display: block;
 
-  &_backgroundRing {
+  &_orbitRing {
     fill: none;
     stroke: $color-secondary;
     stroke-width: 5px;
+  }
+
+  &_backgroundRings {
+    transform: scale(0.9) translateZ(0) rotateZ(30deg);
+    transform-origin: 50% 50%;
+  }
+
+  &_backgroundRing {
+    fill: none;
+    stroke: $color-secondary;
+    stroke-width: 1px;
+    transform-origin: 50% 50%;
   }
 
   &_ring {
@@ -46,10 +58,23 @@
 
   &_loading {
     .Logo {
-      &_backgroundRings,
+      &_orbitRings,
       &_rings {
         transform-origin: 50% 50%;
         animation: Logo_animation_rotate infinite 32s linear;
+      }
+
+      &_backgroundRing {
+        animation: Logo_animation_backgroundRing_pulse infinite 12s linear;
+        stroke-width: 0.5px;
+
+        &_2 {
+          animation-delay: -4s;
+        }
+
+        &_3 {
+          animation-delay: -8s;
+        }
       }
 
       &_ring {
@@ -68,7 +93,7 @@
         }
       }
 
-      &_backgroundRing {
+      &_orbitRing {
         stroke-width: 3px;
       }
 
@@ -99,7 +124,7 @@
         opacity: 0.4;
       }
 
-      &_backgroundRing {
+      &_orbitRing {
         stroke: none;
       }
 
@@ -133,6 +158,30 @@
   }
   97.5% {
     transform: scaleY(0.2);
+  }
+}
+
+@keyframes Logo_animation_backgroundRing_pulse {
+  0% {
+    transform: scale(0.9) translateZ(0) rotateZ(0deg);
+  }
+  10% {
+    transform: scale(0.7) translateZ(0) rotateZ(-36deg);
+  }
+  40% {
+    transform: scale(0.7) translateZ(0) rotateZ(-144deg);
+  }
+  50% {
+    transform: scale(0.9) translateZ(0) rotateZ(-180deg);
+  }
+  60% {
+    transform: scale(1.1) translateZ(0) rotateZ(-216deg);
+  }
+  90% {
+    transform: scale(1.1) translateZ(0) rotateZ(-324deg);
+  }
+  100% {
+    transform: scale(0.9) translateZ(0) rotateZ(-360deg);
   }
 }
 

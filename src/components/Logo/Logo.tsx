@@ -33,6 +33,22 @@ const Logo: React.FC<IProps> = ({
         ry="21.9"
       />
       <ellipse
+        className="Logo_backgroundRing Logo_backgroundRing_2"
+        cx="64"
+        cy="64"
+        rx="55.8"
+        ry="21.9"
+        transform="rotate(60)"
+      />
+      <ellipse
+        className="Logo_backgroundRing Logo_backgroundRing_3"
+        cx="64"
+        cy="64"
+        rx="55.8"
+        ry="21.9"
+        transform="rotate(120)"
+      />
+      {/* <ellipse
         transform="matrix(0.866 -0.5 0.5 0.866 -23.4316 40.576)"
         className="Logo_backgroundRing Logo_backgroundRing_2"
         cx="64"
@@ -43,6 +59,31 @@ const Logo: React.FC<IProps> = ({
       <ellipse
         transform="matrix(0.5 -0.866 0.866 0.5 -23.436 87.4316)"
         className="Logo_backgroundRing Logo_backgroundRing_3"
+        cx="64"
+        cy="64"
+        rx="55.8"
+        ry="21.9"
+      /> */}
+    </g>
+    <g className="Logo_orbitRings">
+      <ellipse
+        className="Logo_orbitRing Logo_orbitRing_1"
+        cx="64"
+        cy="64"
+        rx="55.8"
+        ry="21.9"
+      />
+      <ellipse
+        transform="matrix(0.866 -0.5 0.5 0.866 -23.4316 40.576)"
+        className="Logo_orbitRing Logo_orbitRing_2"
+        cx="64"
+        cy="64"
+        rx="21.9"
+        ry="55.8"
+      />
+      <ellipse
+        transform="matrix(0.5 -0.866 0.866 0.5 -23.436 87.4316)"
+        className="Logo_orbitRing Logo_orbitRing_3"
         cx="64"
         cy="64"
         rx="55.8"
