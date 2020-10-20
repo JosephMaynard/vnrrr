@@ -37,7 +37,7 @@ const Timestamp: React.FC<IProps> = ({
       timeSince,
       fullTime: timeCreated.toLocaleString('en-GB', { timeZone: 'UTC' }),
     };
-  }, [createdUTC]);
+  }, [createdUTC, showFullTime]);
   return (
     <span className={className}>
       {timestampData.timeSince}
