@@ -7,16 +7,14 @@ export interface IProps {
 }
 
 const VideoPlayer: React.FC<IProps> = ({ src, height, width }): JSX.Element => (
-  <div className="VideoPlayer">
-    <video
-      className="VideoPlayer_video"
-      src={src}
-      controls
-      autoPlay
-      height={height}
-      width={width}
-    />
-  </div>
+  <video
+    className="VideoPlayer"
+    style={{ maxWidth: `${width / 16}rem` }}
+    src={src}
+    controls
+    autoPlay
+    loop
+  />
 );
 
 export default VideoPlayer;
