@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { useHistory } from 'react-router-dom';
 
 import { TState } from '../../store';
 import { setShowComments, setSideMenuOpen } from '../../store/ui/ui';
@@ -26,6 +27,7 @@ const Layout: React.FC<IProps> = ({
     (state: TState) => state.ui
   );
   const dispatch = useDispatch();
+  const history = useHistory();
   const sideMenuRef = useRef(null);
   return (
     <div className="Layout">
@@ -36,6 +38,7 @@ const Layout: React.FC<IProps> = ({
             className="Layout_backButton"
             onClick={(): void => {
               dispatch(setShowComments(false));
+              history.goBack();
             }}
             label="Back"
           />
