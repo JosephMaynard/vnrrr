@@ -66,10 +66,10 @@ const posts = createSlice({
         if (state.postIDs.indexOf(post.data.id) === -1) {
           state.posts.push(post.data);
           state.postIDs.push(post.data.id);
-          state.loading = false;
-          state.error = false;
         }
       });
+      state.loading = false;
+      state.error = false;
       state.currentSubreddit = action.payload.currentSubreddit;
     },
   },
