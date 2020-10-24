@@ -24,7 +24,6 @@ const PostItem: React.FC<IProps> = ({
     domain,
     over_18,
     thumbnail,
-    id,
     num_comments,
     ups,
     permalink,
@@ -61,7 +60,7 @@ const PostItem: React.FC<IProps> = ({
         <SVGIcon className="PostItem_postTitle_icon" icon="launch" />
       </a>
     );
-  }, [url, title, commentsOnClick]);
+  }, [url, title, commentsOnClick, is_reddit_media_domain, is_self, permalink]);
   const postThumbnail = useMemo(() => {
     if (
       thumbnail &&
