@@ -38,8 +38,9 @@ const Comments: React.FC = (): JSX.Element => {
         <LoadingScreen text="Loading comments" />
       ) : (
         <>
+          <h2 className="Comments_title">{post.title}</h2>
+          {post.preview && <Preview post={post} />}
           <div className="Comments_header">
-            <h2 className="Comments_title">{post.title}</h2>
             <p className="Comments_postInfo">
               <span className="Comments_postInfo_author">{post.author}</span>
               <Link
@@ -77,7 +78,6 @@ const Comments: React.FC = (): JSX.Element => {
               {`https://reddit.com${post.permalink}`}
             </a>
           </div>
-          {post.preview && <Preview post={post} />}
           {post.selftext_html && (
             <HTLMBlock
               className="Comments_selftext"
