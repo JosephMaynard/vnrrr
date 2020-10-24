@@ -61,44 +61,44 @@
       &_orbitRings,
       &_rings {
         transform-origin: 50% 50%;
-        animation: Logo_animation_rotate infinite 32s linear;
+        animation: Logo_animation_rotate infinite 24s linear;
       }
 
       &_backgroundRing {
-        animation: Logo_animation_backgroundRing_pulse infinite 12s linear;
+        animation: Logo_animation_backgroundRing_pulse infinite 5s linear;
         stroke-width: 0.5px;
 
         &_2 {
-          animation-delay: -4s;
+          animation-delay: -1.66667s;
         }
 
         &_3 {
-          animation-delay: -8s;
+          animation-delay: -3.33334s;
         }
       }
 
       &_ring {
-        stroke-width: 7px;
+        stroke-width: 6px;
         stroke-dasharray: 64;
         stroke-dashoffset: 64;
         stroke-linecap: round;
-        animation: Logo_animation_ring_dash infinite 9s linear;
+        animation: Logo_animation_ring_dash infinite 7s linear;
 
         &_2 {
-          animation-delay: -3s;
+          animation-delay: -2.33335s;
         }
 
         &_3 {
-          animation-delay: -6s;
+          animation-delay: -4.66667s;
         }
       }
 
       &_orbitRing {
-        stroke-width: 3px;
+        stroke-width: 2.75px;
       }
 
       &_head {
-        animation: Logo_animation_head_rock 2s infinite;
+        animation: Logo_animation_head_rock 1.75s infinite;
       }
 
       &_eyes {
@@ -113,6 +113,12 @@
         stroke: $color-text;
         stroke-width: 6px;
         opacity: 0.125;
+      }
+
+      &_backgroundRing {
+        stroke: $color-text;
+        stroke-width: 3px;
+        opacity: 0.03125;
       }
 
       &_eyes {
@@ -210,9 +216,9 @@
     transform: scale(0.9) translateZ(0) rotateZ(0deg);
   }
   25% {
-    transform: scale(0.9) translateZ(0) rotateZ(-5deg);
+    transform: scale(0.9) translateZ(0) rotateZ(-7deg);
   }
   75% {
-    transform: scale(0.9) translateZ(0) rotateZ(5deg);
+    transform: scale(0.9) translateZ(0) rotateZ(7deg);
   }
 }
