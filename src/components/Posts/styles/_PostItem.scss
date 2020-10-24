@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  word-break: break-word;
 
   &_inner {
     display: flex;
