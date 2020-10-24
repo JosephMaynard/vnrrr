@@ -40,17 +40,22 @@ const Comments: React.FC = (): JSX.Element => {
         <>
           <div className="Comments_header">
             <h2 className="Comments_title">{post.title}</h2>
-            <p>{post.author}</p>
-            <p>
-              <Timestamp
-                createdUTC={post.created_utc}
-                className="CommentBlock_timestamp"
-                showFullTime
-              />
+            <p className="Comments_postInfo">
+              <span className="Comments_postInfo_author">{post.author}</span>
+              <Link
+                className="Comments_postInfo_link"
+                to={`r/${post.subreddit}`}
+              >
+                r/{post.subreddit}
+              </Link>
+              <span>
+                <Timestamp
+                  createdUTC={post.created_utc}
+                  className="Comments_postInfo_timestamp"
+                  showFullTime
+                />
+              </span>
             </p>
-            <Link className="Comments_header_link" to={`r/${post.subreddit}`}>
-              r/{post.subreddit}
-            </Link>
             {post.domain.split('.')[0] !== 'self' && (
               <a
                 href={post.url}
