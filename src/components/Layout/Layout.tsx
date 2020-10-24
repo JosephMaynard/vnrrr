@@ -26,7 +26,7 @@ const Layout: React.FC<IProps> = ({
     (state: TState) => state.ui
   );
   const dispatch = useDispatch();
-  const sideMenuRef = React.useRef(null);
+  const sideMenuRef = useRef(null);
   return (
     <div className="Layout">
       <header className="Layout_header">
@@ -42,8 +42,7 @@ const Layout: React.FC<IProps> = ({
         )}
         <Logo className="Layout_header_logo" />
         <span className="Layout_header_textBlock">
-          <h1 className="Layout_title">React Reddit</h1>
-          <h2 className="Layout_subtitle">{title}</h2>
+          <h1 className="Layout_title">{title}</h1>
         </span>
         <IconButton icon="refresh" onClick={refresh} label="Refresh posts" />
         <IconButton
@@ -55,6 +54,16 @@ const Layout: React.FC<IProps> = ({
         />
       </header>
       {children}
+      <TransitionGroup component={null}>
+        {sideMenuOpen && (
+          <CSSTransition
+            classNames="Layout_overlay"
+            timeout={{ enter: 0, exit: 300 }}
+          >
+            <div className="Layout_overlay" />
+          </CSSTransition>
+        )}
+      </TransitionGroup>
       <TransitionGroup component={null}>
         {sideMenuOpen && (
           <CSSTransition

@@ -7,12 +7,13 @@
   top: 0;
   right: 0;
   bottom: 0;
-  width: 30rem;
+  width: 25rem;
+  max-width: 80vw;
 
   &_closeButton {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: 0.25rem;
+    right: 0.25rem;
 
     * {
       fill: $color-text;
