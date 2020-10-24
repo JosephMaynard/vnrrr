@@ -1,0 +1,10 @@
+.VideoPlayer {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+
+  &_video {
+    display: block;
+    margin: 0 auto;
+  }
+}

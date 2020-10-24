@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react';
 
+import VideoPlayer from './VideoPlayer';
+
 import { IRedditPostData } from '../../store/api-types';
 
 import './styles/index.scss';
@@ -10,22 +12,16 @@ export interface IProps {
 const renderMedia = (post: IRedditPostData): JSX.Element => {
   if (post.secure_media?.reddit_video?.fallback_url) {
     return (
-      <video
-        className="Preview_video"
+      <VideoPlayer
         src={post.secure_media.reddit_video.fallback_url}
-        controls
-        autoPlay
         height={post.secure_media.reddit_video.height}
         width={post.secure_media.reddit_video.width}
       />
     );
   } else if (post.preview.reddit_video_preview?.fallback_url) {
     return (
-      <video
-        className="Preview_video"
+      <VideoPlayer
         src={post.preview.reddit_video_preview.fallback_url}
-        controls
-        autoPlay
         height={post.preview.reddit_video_preview.height}
         width={post.preview.reddit_video_preview.width}
       />
@@ -35,10 +31,10 @@ const renderMedia = (post: IRedditPostData): JSX.Element => {
     post.preview.images[0].variants?.mp4?.source?.url
   ) {
     return (
-      <video
-        className="Preview_video"
+      <VideoPlayer
         src={post.preview.images[0].variants.mp4.source.url}
-        controls
+        width={post.preview.images[0].variants.mp4.source.width}
+        height={post.preview.images[0].variants.mp4.source.height}
       />
     );
   } else if (
