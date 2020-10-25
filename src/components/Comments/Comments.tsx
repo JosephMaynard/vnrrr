@@ -16,6 +16,7 @@ import HTLMBlock from '../HTMLBlock/HTMLBlock';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import Preview from '../Preview/Preview';
 import Timestamp from '../Timestamp/Timestamp';
+import LoadMore from '../LoadMore/LoadMore';
 
 import './styles/index.scss';
 
@@ -97,12 +98,11 @@ const Comments: React.FC = (): JSX.Element => {
               {comments.map(
                 (comment): JSX.Element =>
                   comment.kind === 'more' && comment.data.children ? (
-                    <button
-                      className="Comments_getMoreCommentsButton"
-                      type="button"
+                    <LoadMore
                       key={comment.data.name}
-                      disabled={loadingMoreComments}
-                      onClick={(): void => {
+                      text={`Get ${comment.data.count || 0} more comments`}
+                      loading={loadingMoreComments}
+                      getMore={(): void => {
                         dispatch(
                           getMoreComments({
                             children: comment.data.children?.slice(0, 10) || [],
@@ -111,9 +111,7 @@ const Comments: React.FC = (): JSX.Element => {
                           })
                         );
                       }}
-                    >
-                      Get {comment.data.count || 0} more comments
-                    </button>
+                    />
                   ) : (
                     <CommentBlock key={comment.data.name} comment={comment} />
                   )

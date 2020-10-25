@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { Waypoint } from 'react-waypoint';
 
 import { TState } from '../../store';
 import {
@@ -17,6 +16,7 @@ import Layout from '../Layout/Layout';
 import PostItem from './PostItem';
 import CommentsRouter from '../Comments/CommentsRouter';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
+import LoadMore from '../LoadMore/LoadMore';
 
 import './styles/index.scss';
 
@@ -90,15 +90,11 @@ const Posts: React.FC<IProps> = ({ isFrontPage }: IProps) => {
               />
             ))}
           </ul>
-          <Waypoint onEnter={getMorePosts} />
-          <button
-            className="Posts_getMorePostsButton"
-            onClick={getMorePosts}
-            type="button"
-            disabled={loading}
-          >
-            {loading ? 'Loading Posts....' : 'Get More Posts'}
-          </button>
+          <LoadMore
+            text="Get More Posts"
+            getMore={getMorePosts}
+            loading={loading}
+          />
         </div>
       )}
       <CommentsRouter showComments={showComments} />
