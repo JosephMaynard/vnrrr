@@ -1,0 +1,21 @@
+.LoadMore {
+  width: 100%;
+  display: block;
+  padding: 0;
+  border: 0;
+  background-color: $color-background;
+  padding: 0.25rem;
+
+  &_inner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &_logo {
+    width: 3rem;
+    height: 3em;
+    margin-right: 0.75rem;
+  }
+}
