@@ -15,9 +15,9 @@ import SVGIcon from '../SVGIcon/SVGIcon';
 import HTLMBlock from '../HTMLBlock/HTMLBlock';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import Preview from '../Preview/Preview';
+import Timestamp from '../Timestamp/Timestamp';
 
 import './styles/index.scss';
-import Timestamp from '../Timestamp/Timestamp';
 
 export interface IParamTypes {
   subreddit: string;
