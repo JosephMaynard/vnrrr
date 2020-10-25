@@ -6,4 +6,5 @@ export interface ICommentsReducer {
   commentsLoaded: boolean;
   comments: IRedditPost[] | null;
   error: boolean;
+  loadingMoreComments: boolean;
 }

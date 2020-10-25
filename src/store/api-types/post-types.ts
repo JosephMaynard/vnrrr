@@ -108,9 +108,11 @@ export interface IRedditPostData {
   can_gild: boolean;
   can_mod_post: boolean;
   category: null;
+  children?: string[];
   clicked: boolean;
   content_categories: null;
   contest_mode: boolean;
+  count?: number;
   created_utc: number;
   created: number;
   discussion_type: null;
@@ -210,6 +212,15 @@ export interface IRedditCommentsResponseItem {
     after: string | null;
     before: string | null;
     children: IRedditPost[];
+  };
+}
+
+export interface IRedditGetMoreCommentsResponse {
+  json: {
+    errors: Array<any>;
+    data: {
+      things: IRedditPost[];
+    };
   };
 }
 

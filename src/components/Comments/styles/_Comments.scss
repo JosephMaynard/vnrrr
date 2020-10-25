@@ -4,7 +4,7 @@
   height: calc(100vh - #{$layout-header-height});
 
   &_title {
-    padding: 0.75rem 1rem;
+    padding: 1.5rem 1rem;
   }
 
   &_postInfo {
@@ -71,5 +71,11 @@
     &_loading {
       height: 14rem;
     }
+  }
+
+  &_getMoreCommentsButton {
+    display: block;
+    padding: 0.5rem;
+    width: 100%;
   }
 }

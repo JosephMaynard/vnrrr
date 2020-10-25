@@ -2,7 +2,11 @@ import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 import { ICommentsReducer } from './types';
-import { TRedditCommentsResponse, IRedditPostData } from '../api-types';
+import {
+  TRedditCommentsResponse,
+  IRedditPostData,
+  IRedditGetMoreCommentsResponse,
+} from '../api-types';
 
 const initialState: ICommentsReducer = {
   postLoaded: false,
@@ -10,6 +14,7 @@ const initialState: ICommentsReducer = {
   commentsLoaded: false,
   comments: null,
   error: false,
+  loadingMoreComments: false,
 };
 
 export interface IGetCommentsOptions {
@@ -26,6 +31,28 @@ export const getComments = createAsyncThunk(
     return {
       response: response.data,
       postId: options.postId,
+    };
+  }
+);
+
+export interface IGetMoreCommentsOptions {
+  children: string[];
+  postId: string;
+  moreId: string;
+}
+
+export const getMoreComments = createAsyncThunk(
+  'comments/getMoreComments',
+  async (options: IGetMoreCommentsOptions) => {
+    const response = await axios.get(
+      `https://www.reddit.com/api/morechildren.json?api_type=json&children=${options.children.join(
+        '%2C'
+      )}&link_id=${options.postId}&raw_json=1`
+    );
+    return {
+      response: response.data,
+      postId: options.postId,
+      moreId: options.moreId,
     };
   }
 );
@@ -86,6 +113,28 @@ const comments = createSlice({
       state.comments = action.payload.response[1].data.children;
       state.post = action.payload.response[0].data.children[0].data;
       state.postLoaded = true;
+    },
+    [getMoreComments.pending.toString()]: (state) => {
+      state.loadingMoreComments = true;
+    },
+    [getMoreComments.fulfilled.toString()]: (
+      state,
+      action: PayloadAction<{
+        response: IRedditGetMoreCommentsResponse;
+        postId: string;
+        moreId: string;
+      }>
+    ) => {
+      const filteredComments = state.comments
+        ? state.comments?.filter(
+            (comment) => comment.data.name !== action.payload.moreId
+          )
+        : [];
+      state.loadingMoreComments = false;
+      state.comments = [
+        ...filteredComments,
+        ...action.payload.response.json.data.things,
+      ];
     },
   },
 });

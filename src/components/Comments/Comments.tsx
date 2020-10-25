@@ -3,7 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 
 import { TState } from '../../store';
-import { getComments, clearComments } from '../../store/comments/comments';
+import {
+  getComments,
+  clearComments,
+  getMoreComments,
+} from '../../store/comments/comments';
 import { setShowComments } from '../../store/ui/ui';
 
 import CommentBlock from './CommentBlock';
@@ -22,9 +26,13 @@ export interface IParamTypes {
 
 const Comments: React.FC = (): JSX.Element => {
   let { subreddit, postId } = useParams<IParamTypes>();
-  const { comments, post, postLoaded, commentsLoaded } = useSelector(
-    (state: TState) => state.comments
-  );
+  const {
+    comments,
+    post,
+    postLoaded,
+    commentsLoaded,
+    loadingMoreComments,
+  } = useSelector((state: TState) => state.comments);
   const dispatch = useDispatch();
   const loadComments = (): void => {
     dispatch(clearComments(postId));
@@ -87,9 +95,28 @@ const Comments: React.FC = (): JSX.Element => {
           {commentsLoaded && comments ? (
             <div className="Comments_commentBlocks_wrapper">
               {comments.map(
-                (comment): JSX.Element => (
-                  <CommentBlock comment={comment} />
-                )
+                (comment): JSX.Element =>
+                  comment.kind === 'more' && comment.data.children ? (
+                    <button
+                      className="Comments_getMoreCommentsButton"
+                      type="button"
+                      key={comment.data.name}
+                      disabled={loadingMoreComments}
+                      onClick={(): void => {
+                        dispatch(
+                          getMoreComments({
+                            children: comment.data.children?.slice(0, 10) || [],
+                            moreId: comment.data.name,
+                            postId: post.name,
+                          })
+                        );
+                      }}
+                    >
+                      Get {comment.data.count || 0} more comments
+                    </button>
+                  ) : (
+                    <CommentBlock key={comment.data.name} comment={comment} />
+                  )
               )}
             </div>
           ) : (
