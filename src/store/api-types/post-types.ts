@@ -83,6 +83,12 @@ export interface ISecureMedia {
   reddit_video?: IRedditVideo;
 }
 
+export interface IMediaEmbed {
+  content?: string;
+  width?: number;
+  height?: number;
+}
+
 export interface IRedditPostData {
   all_awardings: IRedditAward[];
   allow_live_comments: boolean;
@@ -141,7 +147,7 @@ export interface IRedditPostData {
   link_flair_text: null;
   link_flair_type: string;
   locked: boolean;
-  media_embed: {};
+  media_embed: IMediaEmbed;
   media_only: boolean;
   media: null;
   mod_note: null;
@@ -168,7 +174,7 @@ export interface IRedditPostData {
   report_reasons: null;
   saved: boolean;
   score: number;
-  secure_media_embed: {};
+  secure_media_embed: IMediaEmbed;
   secure_media?: ISecureMedia;
   selftext_html: string | null;
   selftext: string;

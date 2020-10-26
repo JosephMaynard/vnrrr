@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 
 import VideoPlayer from './VideoPlayer';
+import YoutubeEmbed from './YoutubeEmbed';
 
 import { IRedditPostData } from '../../store/api-types';
 
@@ -10,7 +11,23 @@ export interface IProps {
   post: IRedditPostData;
 }
 const renderMedia = (post: IRedditPostData): JSX.Element => {
-  if (post.secure_media?.reddit_video?.fallback_url) {
+  if (post.domain === 'youtu.be') {
+    return (
+      <YoutubeEmbed
+        width={post.media_embed.width || 600}
+        height={post.media_embed.height || 338}
+        youtubeId={post.url.substr(17)}
+      />
+    );
+  } else if (post.domain === 'youtube.com') {
+    return (
+      <YoutubeEmbed
+        width={post.media_embed.width || 600}
+        height={post.media_embed.height || 338}
+        youtubeId={post.url.substr(32)}
+      />
+    );
+  } else if (post.secure_media?.reddit_video?.fallback_url) {
     return (
       <VideoPlayer
         src={post.secure_media.reddit_video.fallback_url}
