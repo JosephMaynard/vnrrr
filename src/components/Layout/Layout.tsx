@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 import { TState } from '../../store';
 import { setShowComments, setSideMenuOpen } from '../../store/ui/ui';
@@ -45,9 +45,15 @@ const Layout: React.FC<IProps> = ({
           />
         )}
         <Logo className="Layout_header_logo" />
-        <span className="Layout_header_textBlock">
-          <h1 className="Layout_title">{title}</h1>
-        </span>
+        <h1 className="Layout_title">
+          {title === 'Frontpage' ? (
+            title
+          ) : (
+            <Link className="Layout_title_link" to={`/${title}`}>
+              {title}
+            </Link>
+          )}
+        </h1>
         <IconButton icon="refresh" onClick={refresh} label="Refresh posts" />
         <IconButton
           icon="menu-vertical"

@@ -33,11 +33,13 @@
     position: fixed;
     width: 100vw;
     height: $layout-header-height;
+    overflow: hidden;
 
     &_logo {
       width: 2.5rem;
       height: 2.5em;
       margin-right: 0.75rem;
+      flex-shrink: 0;
     }
 
     &_textBlock {
@@ -53,6 +55,15 @@
     font-size: 1.125rem;
     font-weight: 500;
     line-height: 1.1875;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 0.25rem;
+    flex-grow: 1;
+
+    &_link {
+      color: $color-primary-text;
+      text-decoration: none;
+    }
   }
 
   &_overlay {
