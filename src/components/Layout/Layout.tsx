@@ -29,6 +29,7 @@ const Layout: React.FC<IProps> = ({
   const dispatch = useDispatch();
   const history = useHistory();
   const sideMenuRef = useRef(null);
+  const overlayRef = useRef(null);
   return (
     <div className="Layout">
       <header className="Layout_header">
@@ -60,10 +61,11 @@ const Layout: React.FC<IProps> = ({
       <TransitionGroup component={null}>
         {sideMenuOpen && (
           <CSSTransition
+            nodeRef={overlayRef}
             classNames="Layout_overlay"
             timeout={{ enter: 0, exit: 300 }}
           >
-            <div className="Layout_overlay" />
+            <div className="Layout_overlay" ref={overlayRef} />
           </CSSTransition>
         )}
       </TransitionGroup>
