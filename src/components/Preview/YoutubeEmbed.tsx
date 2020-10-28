@@ -12,6 +12,7 @@ const YoutubeEmbed: React.FC<IProps> = ({
   height,
 }): JSX.Element => (
   <iframe
+    title="Youtube Embed"
     className="Preview_youtube"
     width={width}
     height={height}
