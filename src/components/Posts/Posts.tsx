@@ -46,9 +46,10 @@ const Posts: React.FC<IProps> = ({ isFrontPage }: IProps) => {
   };
   const initialLoad = (): void => {
     if (
-      isFrontPage === frontPageLoaded ||
-      keepCurrentSubreddit === true ||
-      currentSubreddit === subreddit
+      posts.length > 0 &&
+      (isFrontPage === frontPageLoaded ||
+        keepCurrentSubreddit === true ||
+        currentSubreddit === subreddit)
     ) {
       dispatch(setKeepCurrentSubreddit(false));
     } else {
@@ -63,7 +64,7 @@ const Posts: React.FC<IProps> = ({ isFrontPage }: IProps) => {
           subreddit,
           page: page + 1,
           after: posts[posts.length - 1].name,
-          isFrontPage,
+          isFrontPage: isFrontPage || frontPageLoaded,
         })
       );
       setPage(page + 1);
