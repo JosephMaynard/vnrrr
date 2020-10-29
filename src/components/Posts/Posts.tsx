@@ -37,6 +37,7 @@ const Posts: React.FC<IProps> = ({ isFrontPage }: IProps) => {
     currentSubreddit,
     keepCurrentSubreddit,
     showComments,
+    frontPageLoaded,
   } = useSelector((state: TState) => ({ ...state.posts, ...state.ui }));
   const [page, setPage] = useState(1);
   const refresh = (): void => {
@@ -45,8 +46,9 @@ const Posts: React.FC<IProps> = ({ isFrontPage }: IProps) => {
   };
   const initialLoad = (): void => {
     if (
-      !isFrontPage &&
-      (keepCurrentSubreddit === true || currentSubreddit === subreddit)
+      isFrontPage === frontPageLoaded ||
+      keepCurrentSubreddit === true ||
+      currentSubreddit === subreddit
     ) {
       dispatch(setKeepCurrentSubreddit(false));
     } else {

@@ -31,6 +31,7 @@ export const getPosts = createAsyncThunk(
     return {
       response: response.data,
       currentSubreddit: options.subreddit,
+      isFrontPage: options.isFrontPage,
     };
   }
 );
@@ -60,6 +61,7 @@ const posts = createSlice({
       action: PayloadAction<{
         response: IRedditPostsResponce;
         currentSubreddit: string;
+        isFrontPage?: boolean;
       }>
     ) => {
       action.payload.response.data.children.forEach((post): void => {
@@ -68,6 +70,7 @@ const posts = createSlice({
           state.postIDs.push(post.data.id);
         }
       });
+      state.frontPageLoaded = action.payload.isFrontPage;
       state.loading = false;
       state.error = false;
       state.currentSubreddit = action.payload.currentSubreddit;
