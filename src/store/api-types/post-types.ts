@@ -145,7 +145,9 @@ export interface IRedditPostData {
   domain: string;
   downs: number;
   edited: boolean;
-  gallery_data?: IGalleryDataItem[];
+  gallery_data?: {
+    items: IGalleryDataItem[];
+  };
   gilded: number;
   gildings: { gid_1: 1 };
   hidden: boolean;
