@@ -48,7 +48,7 @@ const Posts: React.FC<IProps> = ({ isFrontPage }: IProps) => {
   const initialLoad = (): void => {
     if (
       posts.length > 0 &&
-      (isFrontPage === frontPageLoaded ||
+      ((isFrontPage === true && frontPageLoaded === true) ||
         keepCurrentSubreddit === true ||
         currentSubreddit === subreddit)
     ) {
@@ -57,7 +57,13 @@ const Posts: React.FC<IProps> = ({ isFrontPage }: IProps) => {
       refresh();
     }
   };
-  useEffect(initialLoad, [subreddit, isFrontPage]);
+  useEffect(initialLoad, [
+    subreddit,
+    currentSubreddit,
+    isFrontPage,
+    frontPageLoaded,
+    keepCurrentSubreddit,
+  ]);
   const getMorePosts = (): void => {
     if (!loading) {
       dispatch(
