@@ -48,7 +48,10 @@ const Comments: React.FC = (): JSX.Element => {
       ) : (
         <>
           <h2 className="Comments_title">{post.title}</h2>
-          {post.preview && <Preview post={post} />}
+          {post.preview ||
+            (post.gallery_data && post.media_metadata && (
+              <Preview post={post} />
+            ))}
           <div className="Comments_header">
             <p className="Comments_postInfo">
               <span className="Comments_postInfo_author">{post.author}</span>
