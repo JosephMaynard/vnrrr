@@ -7,7 +7,7 @@ export interface IPostsReducer {
   postIDs: string[];
   currentSubreddit?: string;
   keepCurrentSubreddit: boolean;
-  isFrontPage?: boolean;
+  frontPageLoaded?: boolean;
 }
 
 export interface IRedditPostsResponce {
