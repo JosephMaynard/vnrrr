@@ -43,6 +43,7 @@ const Posts: React.FC<IProps> = ({ isFrontPage }: IProps) => {
   const refresh = (): void => {
     dispatch(clearPosts());
     dispatch(getPosts({ subreddit, isFrontPage }));
+    dispatch(setKeepCurrentSubreddit(false));
   };
   const initialLoad = (): void => {
     if (
