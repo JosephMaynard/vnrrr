@@ -111,7 +111,9 @@ const comments = createSlice({
       state.error = false;
       state.commentsLoaded = true;
       state.comments = action.payload.response[1].data.children;
-      state.post = action.payload.response[0].data.children[0].data;
+      if (!state.post) {
+        state.post = action.payload.response[0].data.children[0].data;
+      }
       state.postLoaded = true;
     },
     [getMoreComments.pending.toString()]: (state) => {
