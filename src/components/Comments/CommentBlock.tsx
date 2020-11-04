@@ -9,14 +9,19 @@ import Timestamp from '../Timestamp/Timestamp';
 export interface IProps {
   comment: IRedditPost;
   level?: number;
+  scrollUp: () => void;
 }
 
 const CommentBlock: React.FC<IProps> = ({
   comment,
   level = 0,
+  scrollUp,
 }: IProps): JSX.Element => {
   const [expanded, setExpanded] = useState(true);
   const toggleExpanded = (): void => {
+    if (expanded) {
+      scrollUp();
+    }
     setExpanded(!expanded);
   };
   return (
@@ -71,6 +76,7 @@ const CommentBlock: React.FC<IProps> = ({
                         key={`${reply.data.name}${index}`}
                         comment={reply}
                         level={level + 1}
+                        scrollUp={scrollUp}
                       />
                     ) : null
                 )}

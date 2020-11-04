@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 
@@ -41,8 +41,16 @@ const Comments: React.FC = (): JSX.Element => {
     dispatch(setShowComments(true));
   };
   useEffect(loadComments, [subreddit, postId]);
+  const commentsRef = useRef<HTMLDivElement>(null);
+  const scrollUp = (): void => {
+    commentsRef.current?.scrollTo({
+      top: commentsRef.current.scrollTop + 53,
+      left: 0,
+      behavior: 'smooth',
+    });
+  };
   return (
-    <div className="Comments">
+    <div ref={commentsRef} className="Comments">
       {!postLoaded || !post ? (
         <LoadingScreen text="Loading comments" />
       ) : (
@@ -115,7 +123,11 @@ const Comments: React.FC = (): JSX.Element => {
                       }}
                     />
                   ) : (
-                    <CommentBlock key={comment.data.name} comment={comment} />
+                    <CommentBlock
+                      key={comment.data.name}
+                      scrollUp={scrollUp}
+                      comment={comment}
+                    />
                   )
               )}
             </div>
