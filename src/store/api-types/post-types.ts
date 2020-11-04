@@ -140,6 +140,7 @@ export interface IRedditPostData {
   count?: number;
   created_utc: number;
   created: number;
+  crosspost_parent_list?: IRedditPostData[];
   discussion_type: null;
   distinguished: null;
   domain: string;

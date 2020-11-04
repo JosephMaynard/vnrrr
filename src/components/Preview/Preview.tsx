@@ -27,14 +27,6 @@ const renderMedia = (post: IRedditPostData): JSX.Element => {
         youtubeId={post.url.substr(32)}
       />
     );
-  } else if (post.secure_media?.reddit_video?.fallback_url) {
-    return (
-      <VideoPlayer
-        src={post.secure_media.reddit_video.fallback_url}
-        height={post.secure_media.reddit_video.height}
-        width={post.secure_media.reddit_video.width}
-      />
-    );
   } else if (post.gallery_data && post.media_metadata) {
     return (
       <>
@@ -51,6 +43,22 @@ const renderMedia = (post: IRedditPostData): JSX.Element => {
           )
         )}
       </>
+    );
+  } else if (
+    post.secure_media?.reddit_video?.fallback_url ||
+    (post.crosspost_parent_list &&
+      post.crosspost_parent_list[0].secure_media?.reddit_video?.fallback_url)
+  ) {
+    const videoData =
+      post.secure_media?.reddit_video ||
+      (post.crosspost_parent_list &&
+        post.crosspost_parent_list[0].secure_media?.reddit_video);
+    return (
+      <VideoPlayer
+        src={videoData?.fallback_url || ''}
+        height={videoData?.height || 0}
+        width={videoData?.width || 0}
+      />
     );
   } else if (post.preview.reddit_video_preview?.fallback_url) {
     return (
