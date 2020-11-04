@@ -89,6 +89,25 @@ export interface IMediaEmbed {
   height?: number;
 }
 
+export interface IGalleryDataItem {
+  media_id: string;
+  id: number;
+}
+
+export interface IMediaMetaDataMediaItem {
+  y: number;
+  x: number;
+  u: string;
+}
+
+export interface IMediaMetaDataItem {
+  status: string;
+  e: string;
+  m: string;
+  p: IMediaMetaDataMediaItem[];
+  s: IMediaMetaDataMediaItem;
+  id: string;
+}
 export interface IRedditPostData {
   all_awardings: IRedditAward[];
   allow_live_comments: boolean;
@@ -126,6 +145,7 @@ export interface IRedditPostData {
   domain: string;
   downs: number;
   edited: boolean;
+  gallery_data?: IGalleryDataItem[];
   gilded: number;
   gildings: { gid_1: 1 };
   hidden: boolean;
@@ -148,6 +168,9 @@ export interface IRedditPostData {
   link_flair_type: string;
   locked: boolean;
   media_embed: IMediaEmbed;
+  media_metadata?: {
+    [key: string]: IMediaMetaDataItem;
+  };
   media_only: boolean;
   media: null;
   mod_note: null;
