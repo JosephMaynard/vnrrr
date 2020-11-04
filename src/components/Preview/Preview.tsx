@@ -35,6 +35,23 @@ const renderMedia = (post: IRedditPostData): JSX.Element => {
         width={post.secure_media.reddit_video.width}
       />
     );
+  } else if (post.gallery_data && post.media_metadata) {
+    return (
+      <>
+        {post.gallery_data.items.map(
+          (item): JSX.Element => (
+            <img
+              key={item.media_id}
+              src={
+                post.media_metadata && post.media_metadata[item.media_id]
+                  ? post.media_metadata[item.media_id].s.u
+                  : ''
+              }
+            />
+          )
+        )}
+      </>
+    );
   } else if (post.preview.reddit_video_preview?.fallback_url) {
     return (
       <VideoPlayer
