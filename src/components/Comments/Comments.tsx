@@ -64,7 +64,7 @@ const Comments: React.FC = (): JSX.Element => {
               <span className="Comments_postInfo_author">{post.author}</span>
               <Link
                 className="Comments_postInfo_link"
-                to={`r/${post.subreddit}`}
+                to={`/r/${post.subreddit}`}
               >
                 r/{post.subreddit}
               </Link>
