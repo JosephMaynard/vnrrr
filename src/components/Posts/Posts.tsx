@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -45,7 +45,7 @@ const Posts: React.FC<IProps> = ({ isFrontPage }: IProps) => {
     dispatch(getPosts({ subreddit, isFrontPage }));
     dispatch(setKeepCurrentSubreddit(false));
   };
-  const initialLoad = (): void => {
+  const initialLoad = useCallback((): void => {
     if (
       posts.length > 0 &&
       ((isFrontPage === true && frontPageLoaded === true) ||
@@ -53,17 +53,42 @@ const Posts: React.FC<IProps> = ({ isFrontPage }: IProps) => {
         currentSubreddit === subreddit)
     ) {
       dispatch(setKeepCurrentSubreddit(false));
+      console.log(
+        '🛎 Ding',
+        {
+          isFrontPage,
+          frontPageLoaded,
+          keepCurrentSubreddit,
+          currentSubreddit,
+          subreddit,
+        },
+        isFrontPage === true && frontPageLoaded === true,
+        currentSubreddit === subreddit
+      );
     } else {
       refresh();
+      console.log(
+        '🔔 Dong!',
+        {
+          isFrontPage,
+          frontPageLoaded,
+          keepCurrentSubreddit,
+          currentSubreddit,
+          subreddit,
+        },
+        isFrontPage === true && frontPageLoaded === true,
+        currentSubreddit === subreddit
+      );
     }
-  };
-  useEffect(initialLoad, [
-    subreddit,
-    currentSubreddit,
+  }, [
+    posts,
     isFrontPage,
     frontPageLoaded,
     keepCurrentSubreddit,
+    currentSubreddit,
+    subreddit,
   ]);
+  useEffect(initialLoad, [subreddit, isFrontPage]);
   const getMorePosts = (): void => {
     if (!loading) {
       dispatch(
