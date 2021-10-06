@@ -10,7 +10,7 @@
     'posts comments';
   position: relative;
 
-  @include breakpoint('small') {
+  @include breakpoint('medium') {
     grid-template-columns: 1fr 1fr;
   }
 

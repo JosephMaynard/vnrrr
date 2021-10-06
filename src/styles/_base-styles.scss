@@ -24,12 +24,6 @@ body {
     }
   }
 
-  @include breakpoint('small') {
-    &::before {
-      content: 'small';
-    }
-  }
-
   @include breakpoint('mobile') {
     &::before {
       content: 'mobile';

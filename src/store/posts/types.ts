@@ -8,6 +8,8 @@ export interface IPostsReducer {
   currentSubreddit?: string;
   keepCurrentSubreddit: boolean;
   frontPageLoaded?: boolean;
+  postsSort: string;
+  subreddit?: string;
 }
 
 export interface IRedditPostsResponce {

@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-import { ICommentsReducer } from './types';
+import { ICommentsReducer, TSortCommentsBy } from './types';
+import { TState } from '../index';
 import {
   TRedditCommentsResponse,
   IRedditPostData,
@@ -15,6 +16,7 @@ const initialState: ICommentsReducer = {
   comments: null,
   error: false,
   loadingMoreComments: false,
+  commentsSort: '',
 };
 
 export interface IGetCommentsOptions {
@@ -24,9 +26,13 @@ export interface IGetCommentsOptions {
 
 export const getComments = createAsyncThunk(
   'comments/getComments',
-  async (options: IGetCommentsOptions) => {
+  async (options: IGetCommentsOptions, { getState }) => {
+    const state: TState = getState();
+    const { commentsSort } = state.comments;
     const response = await axios.get(
-      `https://www.reddit.com/r/${options.subreddit}/comments/${options.postId}.json?raw_json=1`
+      `https://www.reddit.com/r/${options.subreddit}/comments/${
+        options.postId
+      }.json?raw_json=1${commentsSort ? `&sort=${commentsSort}` : ''}`
     );
     return {
       response: response.data,
@@ -43,11 +49,15 @@ export interface IGetMoreCommentsOptions {
 
 export const getMoreComments = createAsyncThunk(
   'comments/getMoreComments',
-  async (options: IGetMoreCommentsOptions) => {
+  async (options: IGetMoreCommentsOptions, { getState }) => {
+    const state: TState = getState();
+    const { commentsSort } = state.comments;
     const response = await axios.get(
       `https://www.reddit.com/api/morechildren.json?api_type=json&children=${options.children.join(
         '%2C'
-      )}&link_id=${options.postId}&raw_json=1`
+      )}&link_id=${options.postId}&raw_json=1${
+        commentsSort ? `&sort=${commentsSort}` : ''
+      }`
     );
     return {
       response: response.data,
@@ -73,6 +83,9 @@ const comments = createSlice({
       state.error = false;
       state.commentsLoaded = false;
       state.comments = null;
+    },
+    setCommentsSort: (state, action: PayloadAction<TSortCommentsBy>) => {
+      state.commentsSort = action.payload;
     },
   },
   extraReducers: {
@@ -100,6 +113,7 @@ const comments = createSlice({
       state.error = false;
       state.commentsLoaded = false;
       state.comments = null;
+      state.postId = action.meta.arg.postId;
     },
     [getComments.fulfilled.toString()]: (
       state,
@@ -141,6 +155,6 @@ const comments = createSlice({
   },
 });
 
-export const { clearComments, setPost } = comments.actions;
+export const { clearComments, setPost, setCommentsSort } = comments.actions;
 
 export default comments;

@@ -9,6 +9,7 @@ const initialState: IPostsReducer = {
   error: false,
   posts: [],
   postIDs: [],
+  postsSort: '',
 };
 
 export interface IGetPostsOptions {
@@ -20,13 +21,18 @@ export interface IGetPostsOptions {
 
 export const getPosts = createAsyncThunk(
   'posts/getPosts',
-  async (options: IGetPostsOptions) => {
+  async (options: IGetPostsOptions, { getState }) => {
+    const state: TState = getState();
+    const { postsSort } = state.posts;
+    const [sort, t] = postsSort.split(':');
     const response = await axios.get(
       `https://www.reddit.com/${
         options.isFrontPage ? 'best' : `r/${options.subreddit}`
-      }.json?${options.after || options.page ? 'count=25' : ''}${
-        options.page ? `&page=${options.page}` : ''
-      }${options.after ? `&after=${options.after}` : ''}&raw_json=1`
+      }${sort ? `/${sort}` : ''}.json?${
+        options.after || options.page ? 'count=25' : ''
+      }${options.page ? `&page=${options.page}` : ''}${
+        options.after ? `&after=${options.after}` : ''
+      }${t ? `&t=${t}` : ''}&raw_json=1`
     );
     return {
       response: response.data,
@@ -47,14 +53,27 @@ const posts = createSlice({
       state.posts = [];
       state.postIDs = [];
     },
+    setPostsSort: (state, action: PayloadAction<string>) => {
+      state.postsSort = action.payload;
+    },
     setKeepCurrentSubreddit: (state, action: PayloadAction<boolean>) => {
       state.keepCurrentSubreddit = action.payload;
     },
   },
   extraReducers: {
-    [getPosts.pending.toString()]: (state) => {
+    [getPosts.pending.toString()]: (
+      state,
+      action: {
+        meta: {
+          arg: {
+            subreddit: string;
+          };
+        };
+      }
+    ) => {
       state.loading = true;
       state.error = false;
+      state.subreddit = action.meta.arg.subreddit;
     },
     [getPosts.fulfilled.toString()]: (
       state,
@@ -78,6 +97,10 @@ const posts = createSlice({
   },
 });
 
-export const { clearPosts, setKeepCurrentSubreddit } = posts.actions;
+export const {
+  clearPosts,
+  setPostsSort,
+  setKeepCurrentSubreddit,
+} = posts.actions;
 
 export default posts;
