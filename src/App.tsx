@@ -30,7 +30,7 @@ const App: React.FC = (): JSX.Element => {
         <Route path="/" exact>
           <Posts isFrontPage />
         </Route>
-        <Route path="/r/:subreddit">
+        <Route path="/r/:subreddit/:sort?">
           <Posts />
         </Route>
         <Route path="/logo">

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import OutsideClickHandler from 'react-outside-click-handler';
 
 import { TState } from '../../store';
@@ -23,16 +23,25 @@ export type TRef = HTMLDivElement;
 const SideMenu = React.forwardRef<TRef, IProps>(
   ({ close }: IProps, ref): JSX.Element => {
     const dispatch = useDispatch();
-    const { postsSort, commentsSort, postId, currentSubreddit } = useSelector(
-      (state: TState) => ({
-        ...state.posts,
-        ...state.comments,
-      })
-    );
-    const handleSetPostsSort = (sort: string): void => {
-      console.log(currentSubreddit, sort);
-      if (postsSort !== sort) {
-        dispatch(setPostsSort(sort));
+    let history = useHistory();
+    const {
+      postsSort,
+      commentsSort,
+      postId,
+      currentSubreddit,
+      isFrontPage,
+    } = useSelector((state: TState) => ({
+      ...state.posts,
+      ...state.comments,
+    }));
+    const handleSetPostsSort = (sortString: string): void => {
+      if (!isFrontPage && postsSort !== sortString) {
+        const [sort, t] = sortString.split(':');
+        history.push({
+          pathname: `/r/${currentSubreddit}${sort ? `/${sort}` : ''}`,
+          search: t ? `?t=${t}` : undefined,
+        });
+        dispatch(setPostsSort(sortString));
         dispatch(clearPosts());
         dispatch(getPosts({ subreddit: currentSubreddit }));
       }
@@ -52,27 +61,29 @@ const SideMenu = React.forwardRef<TRef, IProps>(
             onClick={close}
             className="SideMenu_closeButton"
           />
-          <SortSelect
-            id="sortPosts"
-            label="Sort Posts:"
-            onChange={(e) => {
-              handleSetPostsSort(e.target.value);
-            }}
-            value={postsSort}
-          >
-            <option value="">Best</option>
-            <option value="hot">Hot</option>
-            <option value="top:day">Day</option>
-            <optgroup label="Top">
-              <option value="top:week">Week</option>
-              <option value="top:month">Month</option>
-              <option value="top:year">Year</option>
-              <option value="top:all">All time</option>
-            </optgroup>
-            <option value="new">New</option>
-            <option value="rising">Rising</option>
-            <option value="controversial">Controversial</option>
-          </SortSelect>
+          {!isFrontPage && (
+            <SortSelect
+              id="sortPosts"
+              label="Sort Posts:"
+              onChange={(e) => {
+                handleSetPostsSort(e.target.value);
+              }}
+              value={postsSort}
+            >
+              <option value="">Best</option>
+              <option value="hot">Hot</option>
+              <optgroup label="Top">
+                <option value="top:day">Day</option>
+                <option value="top:week">Week</option>
+                <option value="top:month">Month</option>
+                <option value="top:year">Year</option>
+                <option value="top:all">All time</option>
+              </optgroup>
+              <option value="new">New</option>
+              <option value="rising">Rising</option>
+              <option value="controversial">Controversial</option>
+            </SortSelect>
+          )}
           <SortSelect
             id="sortComments"
             label="Sort Comments:"

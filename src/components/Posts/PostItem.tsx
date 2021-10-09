@@ -10,11 +10,13 @@ import Timestamp from '../Timestamp/Timestamp';
 export interface IProps {
   post: IRedditPostData;
   commentsOnClick: () => void;
+  currentSubreddit?: string;
 }
 
 const PostItem: React.FC<IProps> = ({
   post,
   commentsOnClick,
+  currentSubreddit,
 }: IProps): JSX.Element => {
   const {
     title,
@@ -41,7 +43,10 @@ const PostItem: React.FC<IProps> = ({
     ) {
       return (
         <Link
-          to={permalink}
+          to={{
+            pathname: permalink,
+            state: { currentSubreddit },
+          }}
           className="PostItem_postTitle"
           onClick={commentsOnClick}
         >
@@ -125,7 +130,10 @@ const PostItem: React.FC<IProps> = ({
         </span>
       </span>
       <Link
-        to={permalink}
+        to={{
+          pathname: permalink,
+          state: { currentSubreddit },
+        }}
         className="PostItem_commentsLink"
         onClick={commentsOnClick}
       >

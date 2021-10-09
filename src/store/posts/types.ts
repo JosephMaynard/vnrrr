@@ -9,6 +9,7 @@ export interface IPostsReducer {
   keepCurrentSubreddit: boolean;
   frontPageLoaded?: boolean;
   postsSort: string;
+  postsT?: string;
   subreddit?: string;
 }
 

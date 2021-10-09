@@ -1,13 +1,9 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 
 import { TState } from '../../store';
-import {
-  getPosts,
-  clearPosts,
-  setKeepCurrentSubreddit,
-} from '../../store/posts/posts';
+import { getPosts, clearPosts } from '../../store/posts/posts';
 import { setPost } from '../../store/comments/comments';
 import { setShowComments } from '../../store/ui/ui';
 import { IRedditPostData } from '../../store/api-types';
@@ -19,48 +15,56 @@ import LoadingScreen from '../LoadingScreen/LoadingScreen';
 import LoadMore from '../LoadMore/LoadMore';
 
 import './styles/index.scss';
+import { useQuery } from '../../utils/useQuery';
 
 export interface IParamTypes {
   subreddit: string;
+  sort?: string;
 }
 
 export interface IProps {
   isFrontPage?: boolean;
 }
 
+export interface IRouterState {
+  currentSubreddit?: string;
+}
+
 const Posts: React.FC<IProps> = ({ isFrontPage }: IProps) => {
-  let { subreddit } = useParams<IParamTypes>();
+  let { subreddit, sort } = useParams<IParamTypes>();
+  const query = useQuery();
+  const t = query.get('t');
+  const routerState: IRouterState = useLocation<IRouterState>().state;
   const dispatch = useDispatch();
   const {
     posts,
     loading,
     currentSubreddit,
-    keepCurrentSubreddit,
     showComments,
     frontPageLoaded,
   } = useSelector((state: TState) => ({ ...state.posts, ...state.ui }));
+
   const [page, setPage] = useState(1);
   const refresh = (): void => {
     dispatch(clearPosts());
-    dispatch(getPosts({ subreddit, isFrontPage }));
-    dispatch(setKeepCurrentSubreddit(false));
+    dispatch(getPosts({ subreddit, isFrontPage, sort, t }));
   };
   const initialLoad = useCallback((): void => {
     if (
       posts.length > 0 &&
       ((isFrontPage === true && frontPageLoaded === true) ||
-        keepCurrentSubreddit === true ||
+        (routerState && currentSubreddit === routerState.currentSubreddit) ||
         currentSubreddit === subreddit)
     ) {
-      dispatch(setKeepCurrentSubreddit(false));
       console.log(
         '🛎 Ding',
         {
           isFrontPage,
           frontPageLoaded,
-          keepCurrentSubreddit,
           currentSubreddit,
           subreddit,
+          sort,
+          t,
         },
         isFrontPage === true && frontPageLoaded === true,
         currentSubreddit === subreddit
@@ -72,9 +76,10 @@ const Posts: React.FC<IProps> = ({ isFrontPage }: IProps) => {
         {
           isFrontPage,
           frontPageLoaded,
-          keepCurrentSubreddit,
           currentSubreddit,
           subreddit,
+          sort,
+          t,
         },
         isFrontPage === true && frontPageLoaded === true,
         currentSubreddit === subreddit
@@ -84,11 +89,12 @@ const Posts: React.FC<IProps> = ({ isFrontPage }: IProps) => {
     posts,
     isFrontPage,
     frontPageLoaded,
-    keepCurrentSubreddit,
     currentSubreddit,
     subreddit,
+    sort,
+    t,
   ]);
-  useEffect(initialLoad, [subreddit, isFrontPage]);
+  useEffect(initialLoad, [subreddit, isFrontPage, currentSubreddit, sort, t]);
   const getMorePosts = (): void => {
     if (!loading) {
       dispatch(
@@ -97,6 +103,8 @@ const Posts: React.FC<IProps> = ({ isFrontPage }: IProps) => {
           page: page + 1,
           after: posts[posts.length - 1].name,
           isFrontPage: isFrontPage || frontPageLoaded,
+          sort,
+          t: query.get('t'),
         })
       );
       setPage(page + 1);
@@ -104,7 +112,6 @@ const Posts: React.FC<IProps> = ({ isFrontPage }: IProps) => {
   };
   const commentsOnClick = (post: IRedditPostData) => (): void => {
     dispatch(setPost(post));
-    dispatch(setKeepCurrentSubreddit(true));
     dispatch(setShowComments(true));
   };
   return (
@@ -117,10 +124,11 @@ const Posts: React.FC<IProps> = ({ isFrontPage }: IProps) => {
       ) : (
         <div className={`Posts${showComments ? ' Posts_showComments' : ''}`}>
           <ul className="Posts_ul">
-            {posts.map((post) => (
+            {posts.map((post: IRedditPostData) => (
               <PostItem
                 key={post.name}
                 post={post}
+                currentSubreddit={currentSubreddit}
                 commentsOnClick={commentsOnClick(post)}
               />
             ))}

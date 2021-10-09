@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { TState } from '..';
 
 import { IPostsReducer, IRedditPostsResponce } from './types';
 
@@ -17,27 +18,34 @@ export interface IGetPostsOptions {
   after?: string;
   page?: number;
   isFrontPage?: boolean;
+  sort?: string;
+  t?: null | string;
 }
+
+const createPostsURL = ({
+  isFrontPage,
+  subreddit,
+  sort,
+  after,
+  page,
+  t,
+}: IGetPostsOptions) =>
+  `https://www.reddit.com/${isFrontPage ? 'best' : `r/${subreddit}`}${
+    sort && !isFrontPage && sort !== 'comments' ? `/${sort}` : ''
+  }.json?${after || page ? 'count=25' : ''}${page ? `&page=${page}` : ''}${
+    after ? `&after=${after}` : ''
+  }${t && !isFrontPage && sort !== 'comments' ? `&t=${t}` : ''}&raw_json=1`;
 
 export const getPosts = createAsyncThunk(
   'posts/getPosts',
   async (options: IGetPostsOptions, { getState }) => {
-    const state: TState = getState();
-    const { postsSort } = state.posts;
-    const [sort, t] = postsSort.split(':');
-    const response = await axios.get(
-      `https://www.reddit.com/${
-        options.isFrontPage ? 'best' : `r/${options.subreddit}`
-      }${sort ? `/${sort}` : ''}.json?${
-        options.after || options.page ? 'count=25' : ''
-      }${options.page ? `&page=${options.page}` : ''}${
-        options.after ? `&after=${options.after}` : ''
-      }${t ? `&t=${t}` : ''}&raw_json=1`
-    );
+    const response = await axios.get(createPostsURL({ ...options }));
     return {
       response: response.data,
       currentSubreddit: options.subreddit,
       isFrontPage: options.isFrontPage,
+      postsSort: options.sort,
+      postsT: options.t,
     };
   }
 );
@@ -80,6 +88,8 @@ const posts = createSlice({
       action: PayloadAction<{
         response: IRedditPostsResponce;
         currentSubreddit: string;
+        postsSort: string;
+        postsT: string;
         isFrontPage?: boolean;
       }>
     ) => {
@@ -92,6 +102,9 @@ const posts = createSlice({
       state.frontPageLoaded = action.payload.isFrontPage;
       state.loading = false;
       state.error = false;
+      state.currentSubreddit = action.payload.currentSubreddit;
+      state.postsSort = action.payload.postsSort;
+      state.postsT = action.payload.postsT;
       state.currentSubreddit = action.payload.currentSubreddit;
     },
   },
