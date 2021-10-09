@@ -44,7 +44,9 @@ const Layout: React.FC<IProps> = ({
             label="Back"
           />
         )}
-        <Logo className="Layout_header_logo" />
+        <Link to="/">
+          <Logo className="Layout_header_logo" />
+        </Link>
         <h1 className="Layout_title">
           {title === 'Frontpage' ? (
             title

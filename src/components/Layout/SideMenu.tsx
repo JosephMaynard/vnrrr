@@ -44,6 +44,7 @@ const SideMenu = React.forwardRef<TRef, IProps>(
         dispatch(setPostsSort(sortString));
         dispatch(clearPosts());
         dispatch(getPosts({ subreddit: currentSubreddit }));
+        close();
       }
     };
     const handleSetCommentsSort = (sort: string): void => {
