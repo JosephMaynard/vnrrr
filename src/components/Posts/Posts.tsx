@@ -38,11 +38,16 @@ const Posts: React.FC<IProps> = ({ isFrontPage }: IProps) => {
   const dispatch = useDispatch();
   const {
     posts,
+    post,
     loading,
     currentSubreddit,
     showComments,
     frontPageLoaded,
-  } = useSelector((state: TState) => ({ ...state.posts, ...state.ui }));
+  } = useSelector((state: TState) => ({
+    ...state.posts,
+    ...state.comments,
+    ...state.ui,
+  }));
 
   const [page, setPage] = useState(1);
   const refresh = (): void => {
@@ -51,39 +56,14 @@ const Posts: React.FC<IProps> = ({ isFrontPage }: IProps) => {
   };
   const initialLoad = useCallback((): void => {
     if (
-      posts.length > 0 &&
-      ((isFrontPage === true && frontPageLoaded === true) ||
-        (routerState && currentSubreddit === routerState.currentSubreddit) ||
-        currentSubreddit === subreddit)
+      !(
+        posts.length > 0 &&
+        ((isFrontPage === true && frontPageLoaded === true) ||
+          (routerState && currentSubreddit === routerState.currentSubreddit) ||
+          currentSubreddit === subreddit)
+      )
     ) {
-      console.log(
-        '🛎 Ding',
-        {
-          isFrontPage,
-          frontPageLoaded,
-          currentSubreddit,
-          subreddit,
-          sort,
-          t,
-        },
-        isFrontPage === true && frontPageLoaded === true,
-        currentSubreddit === subreddit
-      );
-    } else {
       refresh();
-      console.log(
-        '🔔 Dong!',
-        {
-          isFrontPage,
-          frontPageLoaded,
-          currentSubreddit,
-          subreddit,
-          sort,
-          t,
-        },
-        isFrontPage === true && frontPageLoaded === true,
-        currentSubreddit === subreddit
-      );
     }
   }, [
     posts,
@@ -95,6 +75,17 @@ const Posts: React.FC<IProps> = ({ isFrontPage }: IProps) => {
     t,
   ]);
   useEffect(initialLoad, [subreddit, isFrontPage, currentSubreddit, sort, t]);
+  useEffect(() => {
+    if (sort !== 'comments') {
+      document.title = isFrontPage
+        ? 'Front Page - vnrrr.com'
+        : `${subreddit} - vnrrr.com`;
+    } else {
+      document.title = `${post && post.title ? post.title : ''}${
+        post && post.subreddit ? ` - ${post.subreddit}` : ''
+      }  - vnrrr.com`;
+    }
+  }, [subreddit, isFrontPage, sort, t, post]);
   const getMorePosts = (): void => {
     if (!loading) {
       dispatch(

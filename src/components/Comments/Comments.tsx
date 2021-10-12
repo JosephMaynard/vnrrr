@@ -19,6 +19,7 @@ import Timestamp from '../Timestamp/Timestamp';
 import LoadMore from '../LoadMore/LoadMore';
 
 import './styles/index.scss';
+import { IRedditPost } from '../../store/api-types';
 
 export interface IParamTypes {
   subreddit: string;
@@ -106,7 +107,7 @@ const Comments: React.FC = (): JSX.Element => {
           {commentsLoaded && comments ? (
             <div className="Comments_commentBlocks_wrapper">
               {comments.map(
-                (comment): JSX.Element =>
+                (comment: IRedditPost): JSX.Element =>
                   comment.kind === 'more' && comment.data.children ? (
                     <LoadMore
                       key={comment.data.name}
