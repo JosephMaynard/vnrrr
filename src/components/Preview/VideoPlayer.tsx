@@ -39,7 +39,6 @@ const VideoPlayer: React.FC<IProps> = ({
                 ? (audio.current.currentTime = video.current?.currentTime || 0)
                 : null;
             }}
-            on
           >
             <source src={redditVideo.hls_url} />
             <source src={redditVideo.dash_url} />
