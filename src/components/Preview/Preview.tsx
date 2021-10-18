@@ -58,6 +58,7 @@ const renderMedia = (post: IRedditPostData): JSX.Element => {
         src={videoData?.fallback_url || ''}
         height={videoData?.height || 0}
         width={videoData?.width || 0}
+        redditVideo={videoData}
       />
     );
   } else if (post.preview.reddit_video_preview?.fallback_url) {
@@ -66,6 +67,7 @@ const renderMedia = (post: IRedditPostData): JSX.Element => {
         src={post.preview.reddit_video_preview.fallback_url}
         height={post.preview.reddit_video_preview.height}
         width={post.preview.reddit_video_preview.width}
+        redditVideo={post.preview.reddit_video_preview}
       />
     );
   } else if (
